@@ -173,7 +173,7 @@ func handle_movement(delta):
 		elif isAttacking:
 			if is_on_floor():
 				var speed = runningSpeed if Input.is_action_pressed("run") else walkingSpeed
-				velocity.x = lerp(velocity.x, 0.0, 0.05)
+				velocity.x = lerp(velocity.x, 0, 0.2)
 		
 		#Animations
 		if is_on_floor() && !isDashing && !isAttacking:
@@ -206,7 +206,7 @@ func handle_movement(delta):
 		velocity.y -= jumpVelocity
 		if isDashing:
 			velocity *= 1.2
-		delayedDash = true
+			delayedDash = true
 		isAttacking = false
 		isJumping = true
 		jumpTimer = 0
