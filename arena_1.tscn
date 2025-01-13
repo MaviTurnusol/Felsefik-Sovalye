@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://co2m3ltxbmowe"]
+[gd_scene load_steps=45 format=3 uid="uid://co2m3ltxbmowe"]
 
 [ext_resource type="Texture2D" uid="uid://c6td6xfwdf5xw" path="res://sprites/bgbgbgbg.png" id="1_rfl4b"]
 [ext_resource type="Texture2D" uid="uid://dtuc44ka5ge5d" path="res://sprites/layer7.png" id="1_yuk7m"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://wbphorlobkbs" path="res://sprites/layer0.png" id="8_12pyy"]
 [ext_resource type="Texture2D" uid="uid://h5fcf7ohrbkr" path="res://sprites/sallananadamlar.png" id="9_tlxij"]
 [ext_resource type="Script" path="res://cam.gd" id="12_8knto"]
+[ext_resource type="PackedScene" uid="uid://bvcqpp47ewia" path="res://Chars/darktar/darktar.tscn" id="12_h885h"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lkrob"]
 atlas = ExtResource("9_tlxij")
@@ -295,7 +296,8 @@ centered = false
 position = Vector2(-38, -33)
 sprite_frames = SubResource("SpriteFrames_a8kde")
 autoplay = "default"
-frame_progress = 0.349591
+frame = 11
+frame_progress = 0.0619832
 centered = false
 
 [node name="bgbgbg" type="Sprite2D" parent="gameSprites"]
@@ -305,6 +307,8 @@ texture = ExtResource("1_rfl4b")
 centered = false
 
 [node name="boxe" type="StaticBody2D" parent="gameSprites"]
+collision_layer = 4
+collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="gameSprites/boxe"]
 position = Vector2(312.5, 348.167)
@@ -327,8 +331,11 @@ position = Vector2(656.667, 175.167)
 shape = SubResource("RectangleShape2D_gh4vi")
 
 [node name="player" parent="gameSprites" instance=ExtResource("3_d8n27")]
-position = Vector2(249, 338)
+position = Vector2(81, 325)
 scale = Vector2(2, 2)
+
+[node name="Darktar" parent="gameSprites" instance=ExtResource("12_h885h")]
+position = Vector2(533, 299)
 
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(320, 180)

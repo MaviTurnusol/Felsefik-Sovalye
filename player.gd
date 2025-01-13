@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var form = 0
+var form = 1
 var momentum: float = 0
 var runningSpeed = 300.0
 var walkingSpeed = 300.0
@@ -173,7 +173,7 @@ func handle_movement(delta):
 		elif isAttacking:
 			if is_on_floor():
 				var speed = runningSpeed if Input.is_action_pressed("run") else walkingSpeed
-				velocity.x = lerp(velocity.x, 0, 0.2)
+				velocity.x = lerp(velocity.x, input.x * speed * 0.35, 0.2)
 		
 		#Animations
 		if is_on_floor() && !isDashing && !isAttacking:
