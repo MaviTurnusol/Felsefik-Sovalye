@@ -1,10 +1,12 @@
-[gd_scene load_steps=10 format=3 uid="uid://db8doulfi8x7p"]
+[gd_scene load_steps=12 format=3 uid="uid://db8doulfi8x7p"]
 
 [ext_resource type="Shader" path="res://testFlame.gdshader" id="1_pdtey"]
 [ext_resource type="Texture2D" uid="uid://di5dbar7q6egy" path="res://fire.jpeg" id="2_dflit"]
+[ext_resource type="PackedScene" uid="uid://co2m3ltxbmowe" path="res://arena_1.tscn" id="3_lbdap"]
 [ext_resource type="Texture2D" uid="uid://dlup0dv7mxojc" path="res://sprites/blurtangle.png" id="3_qxe1a"]
 
 [sub_resource type="Gradient" id="Gradient_chm6k"]
+colors = PackedColorArray(0.160784, 0, 0.188235, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_yigas"]
 gradient = SubResource("Gradient_chm6k")
@@ -13,8 +15,8 @@ gradient = SubResource("Gradient_chm6k")
 shader = ExtResource("1_pdtey")
 shader_parameter/scroll = Vector2(0.5, 0.5)
 shader_parameter/scroll2 = Vector2(0.3, 0.3)
-shader_parameter/noiseScale1 = Vector2(2, 2)
-shader_parameter/noiseScale2 = Vector2(2, 2)
+shader_parameter/noiseScale1 = Vector2(4, 4)
+shader_parameter/noiseScale2 = Vector2(4, 4)
 shader_parameter/blur = 3.0
 shader_parameter/base_intensity = 0.1
 shader_parameter/intensity_factor = 1.5
@@ -22,7 +24,7 @@ shader_parameter/NOISE_PATTERN = ExtResource("2_dflit")
 shader_parameter/TONE_MAPPING = SubResource("GradientTexture2D_yigas")
 
 [sub_resource type="Gradient" id="Gradient_wq6jj"]
-offsets = PackedFloat32Array(0, 0.180328, 0.631148, 1)
+offsets = PackedFloat32Array(0, 0.188525, 0.803279, 1)
 colors = PackedColorArray(0.8, 0.8, 0.8, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0.8, 0.8, 0.8, 0)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_c0x2r"]
@@ -40,15 +42,36 @@ shader_parameter/intensity_factor = 1.725
 shader_parameter/NOISE_PATTERN = ExtResource("2_dflit")
 shader_parameter/TONE_MAPPING = SubResource("GradientTexture2D_c0x2r")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_hgf6f"]
+viewport_path = NodePath("SubViewportContainer/SubViewport")
+
 [node name="SplitScreenTestScene" type="Node2D"]
 
 [node name="ColorRect" type="ColorRect" parent="."]
 material = SubResource("ShaderMaterial_2u5c4")
-offset_right = 654.0
-offset_bottom = 367.0
+offset_left = -289.0
+offset_top = -162.0
+offset_right = 886.0
+offset_bottom = 497.0
 color = Color(0.8, 0.8, 0.8, 1)
 
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+offset_left = -936.0
+offset_top = 42.0
+offset_right = -296.0
+offset_bottom = 402.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(640, 360)
+render_target_update_mode = 4
+
+[node name="arena1" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_lbdap")]
+
 [node name="Screen1" type="Node2D" parent="."]
+position = Vector2(87, 39)
 
 [node name="Sprite2D" type="Sprite2D" parent="Screen1"]
 material = SubResource("ShaderMaterial_anarh")
@@ -58,5 +81,5 @@ centered = false
 [node name="Polygon2D" type="Polygon2D" parent="Screen1"]
 position = Vector2(-4.71146, -0.214024)
 scale = Vector2(1.01976, 1.00738)
-color = Color(0, 0, 0, 1)
-polygon = PackedVector2Array(164, 33, 203, 29, 237, 40, 271, 70, 278, 139, 289, 208, 259, 270, 207, 300, 108.566, 293.051, 45, 237, 36, 180, 38, 112, 60, 60, 113, 37)
+texture = SubResource("ViewportTexture_hgf6f")
+polygon = PackedVector2Array(164, 33, 203, 29, 237, 40, 264.484, 74.663, 278, 139, 280.174, 197.755, 276.252, 243.418, 257.62, 272.205, 223.298, 290.073, 174.267, 298.015, 126.217, 293.051, 88.9535, 277.169, 55.6124, 245.403, 44.8256, 178.894, 46.7868, 107.421, 65.4186, 64.7363, 103.663, 38.9267)
