@@ -1,5 +1,7 @@
 extends CharacterBody2D
 
+var attack = 2
+
 var form = 1
 var momentum: float = 0
 var runningSpeed = 300.0
@@ -294,3 +296,13 @@ func _on_ghost_timer_timeout():
 	if isDashing:
 		$ghostTimer.start()
 	pass # Replace with function body.
+
+
+func _on_ground_attack_hb_13_area_entered(area):
+	if area.has_method("damage"):
+		area.damage(attack)
+
+
+func _on_ground_attack_hb_2_area_entered(area):
+	if area.has_method("damage"):
+		area.damage(attack)

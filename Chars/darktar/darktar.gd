@@ -5,6 +5,8 @@ extends CharacterBody2D
 @onready var change_direction_timer = $ChangeDirTimer
 
 
+var attack = 5
+
 var speed = 100
 var direction = 0
 
@@ -72,6 +74,7 @@ func attack_ready():
 	
 	$CollisionShape2D.global_position.y += 10
 	$Body/HitBoxComp/CollisionShape2D.global_position.y += 10
+	$HitArea/CollisionShape2D.global_position.y += 10
 	
 	velocity = Vector2.ZERO
 	sprite.play("flip")
@@ -86,7 +89,6 @@ var on_floor = true
 var can_dash = true
 
 func attacking(delta):
-	print(velocity.y)
 	var collision = move_and_collide(velocity * delta)
 	
 	if collision:
@@ -118,4 +120,6 @@ func attacking(delta):
 	
 
 
-
+func _on_hit_area_area_entered(area):
+	if area.has_method("damage"):
+		area.damage(attack)
