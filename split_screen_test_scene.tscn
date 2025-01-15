@@ -79,7 +79,7 @@ texture = ExtResource("3_qxe1a")
 centered = false
 
 [node name="Polygon2D" type="Polygon2D" parent="Screen1"]
+texture_filter = 1
 position = Vector2(-4.71146, -0.214024)
-scale = Vector2(1.01976, 1.00738)
 texture = SubResource("ViewportTexture_hgf6f")
 polygon = PackedVector2Array(164, 33, 203, 29, 237, 40, 264.484, 74.663, 278, 139, 280.174, 197.755, 276.252, 243.418, 257.62, 272.205, 223.298, 290.073, 174.267, 298.015, 126.217, 293.051, 88.9535, 277.169, 55.6124, 245.403, 44.8256, 178.894, 46.7868, 107.421, 65.4186, 64.7363, 103.663, 38.9267)

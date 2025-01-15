@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://bvcqpp47ewia"]
+[gd_scene load_steps=44 format=3 uid="uid://bvcqpp47ewia"]
 
 [ext_resource type="Script" path="res://Chars/darktar/darktar.gd" id="1_k28q4"]
 [ext_resource type="Texture2D" uid="uid://cruqjmnbjbonw" path="res://Chars/darktar/darkmantarwalk.png" id="1_ol2tp"]
@@ -264,9 +264,6 @@ size = Vector2(19, 30.0833)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vefe0"]
 size = Vector2(139, 89)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_kj8bf"]
-size = Vector2(20, 31.3333)
-
 [node name="Darktar" type="CharacterBody2D"]
 scale = Vector2(1.5, 1.5)
 collision_layer = 2
@@ -281,14 +278,13 @@ shape = SubResource("RectangleShape2D_pd081")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Body"]
 sprite_frames = SubResource("SpriteFrames_rcwxl")
-animation = &"walk"
+animation = &"flip_more"
 autoplay = "walk"
+frame_progress = 0.627594
 
 [node name="HealthComp" parent="Body" instance=ExtResource("3_0gpse")]
-MAX_HEALTH = 10.0
 
 [node name="HitBoxComp" parent="Body" node_paths=PackedStringArray("health_comp") instance=ExtResource("4_t4gni")]
-collision_layer = 2
 health_comp = NodePath("../HealthComp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/HitBoxComp"]
@@ -296,7 +292,6 @@ position = Vector2(0, 0.958333)
 shape = SubResource("RectangleShape2D_auapu")
 
 [node name="Vision" type="Area2D" parent="Body"]
-collision_layer = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/Vision"]
 position = Vector2(79.5, -27.5)
@@ -308,14 +303,6 @@ one_shot = true
 [node name="ChangeDirTimer" type="Timer" parent="."]
 one_shot = true
 
-[node name="HitArea" type="Area2D" parent="."]
-collision_layer = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea"]
-position = Vector2(0, 1)
-shape = SubResource("RectangleShape2D_kj8bf")
-
 [connection signal="area_entered" from="Body/Vision" to="." method="_on_vision_area_entered"]
 [connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]
 [connection signal="timeout" from="ChangeDirTimer" to="." method="_on_change_dir_timer_timeout"]
-[connection signal="area_entered" from="HitArea" to="." method="_on_hit_area_area_entered"]
