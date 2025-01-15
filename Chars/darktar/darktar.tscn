@@ -278,8 +278,9 @@ shape = SubResource("RectangleShape2D_pd081")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Body"]
 sprite_frames = SubResource("SpriteFrames_rcwxl")
-animation = &"walk"
+animation = &"flip_more"
 autoplay = "walk"
+frame_progress = 0.627594
 
 [node name="HealthComp" parent="Body" instance=ExtResource("3_0gpse")]
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=154 format=3 uid="uid://ds2os4gegqoe4"]
+[gd_scene load_steps=155 format=3 uid="uid://ds2os4gegqoe4"]
 
 [ext_resource type="Texture2D" uid="uid://cfts51nga1se0" path="res://sprites/redatk1Sheet.png" id="1_7w3nq"]
 [ext_resource type="Script" path="res://player.gd" id="1_72lws"]
@@ -25,6 +25,8 @@
 [ext_resource type="Texture2D" uid="uid://chequqw1x5ymk" path="res://sprites/whitewalkSheet.png" id="14_s2ifu"]
 [ext_resource type="PackedScene" uid="uid://djs2661afaea0" path="res://Chars/components/health_comp.tscn" id="24_ok6dk"]
 [ext_resource type="PackedScene" uid="uid://biyeoy2vdy2vl" path="res://Chars/components/hit_box_comp.tscn" id="25_22h6i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8uaje"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kognc"]
 atlas = ExtResource("2_v5k7q")
@@ -1040,6 +1042,7 @@ collision_mask = 7
 script = ExtResource("1_72lws")
 
 [node name="anima" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_8uaje")
 position = Vector2(-6, -12)
 sprite_frames = SubResource("SpriteFrames_3nhkc")
 animation = &"redairattack1"
