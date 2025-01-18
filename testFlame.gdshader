@@ -6,7 +6,7 @@ uniform vec2 scroll2 = vec2(0.3, 0.3);
 uniform vec2 noiseScale1 = vec2(1,1);
 uniform vec2 noiseScale2 = vec2(1,1);
 uniform sampler2D TONE_MAPPING;
-uniform float blur : hint_range(0,7) = 3.0;
+uniform float blur : hint_range(0,20) = 3.0;
 uniform float base_intensity : hint_range(0,0.5) = 0.1;
 uniform float intensity_factor : hint_range(0, 5.0) = 1.5;
 

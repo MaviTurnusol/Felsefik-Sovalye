@@ -1,4 +1,4 @@
-[gd_scene load_steps=155 format=3 uid="uid://ds2os4gegqoe4"]
+[gd_scene load_steps=154 format=3 uid="uid://ds2os4gegqoe4"]
 
 [ext_resource type="Texture2D" uid="uid://cfts51nga1se0" path="res://sprites/redatk1Sheet.png" id="1_7w3nq"]
 [ext_resource type="Script" path="res://player.gd" id="1_72lws"]
@@ -25,8 +25,6 @@
 [ext_resource type="Texture2D" uid="uid://chequqw1x5ymk" path="res://sprites/whitewalkSheet.png" id="14_s2ifu"]
 [ext_resource type="PackedScene" uid="uid://djs2661afaea0" path="res://Chars/components/health_comp.tscn" id="24_ok6dk"]
 [ext_resource type="PackedScene" uid="uid://biyeoy2vdy2vl" path="res://Chars/components/hit_box_comp.tscn" id="25_22h6i"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8uaje"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kognc"]
 atlas = ExtResource("2_v5k7q")
@@ -1036,14 +1034,12 @@ animations = [{
 size = Vector2(10, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_34qjh"]
-size = Vector2(17, 20)
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
 collision_mask = 7
 script = ExtResource("1_72lws")
 
 [node name="anima" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_8uaje")
 position = Vector2(-6, -12)
 sprite_frames = SubResource("SpriteFrames_3nhkc")
 animation = &"redairattack1"
@@ -1064,15 +1060,11 @@ shape = SubResource("RectangleShape2D_dloql")
 [node name="attackHitboxes" type="Node2D" parent="."]
 
 [node name="groundAttackHB13" type="Area2D" parent="attackHitboxes"]
-collision_mask = 2
-monitoring = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="attackHitboxes/groundAttackHB13"]
 polygon = PackedVector2Array(-9, -26, 9, -23, 18, -12, 17, -4, 12, 0, -10, -2, -20, -8, -3, -7, 7, -11, 3, -20)
 
 [node name="groundAttackHB2" type="Area2D" parent="attackHitboxes"]
-collision_mask = 2
-monitoring = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="attackHitboxes/groundAttackHB2"]
 polygon = PackedVector2Array(-18, -13, -12, -24, 1, -26, 14, -16, 16, 0, 2, -4, 5, -9, 0, -15)
@@ -1085,19 +1077,16 @@ one_shot = true
 wait_time = 0.033
 
 [node name="HealthComp" parent="." instance=ExtResource("24_ok6dk")]
-MAX_HEALTH = 15.0
+MAX_HEALTH = 100.0
 
 [node name="HitBoxComp" parent="." node_paths=PackedStringArray("health_comp") instance=ExtResource("25_22h6i")]
-collision_mask = 2
 health_comp = NodePath("../HealthComp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComp"]
-position = Vector2(-2.5, -10)
+position = Vector2(-1, -10)
 shape = SubResource("RectangleShape2D_34qjh")
 
 [connection signal="animation_finished" from="anima" to="." method="_on_anima_animation_finished"]
 [connection signal="animation_looped" from="anima" to="." method="_on_anima_animation_looped"]
-[connection signal="area_entered" from="attackHitboxes/groundAttackHB13" to="." method="_on_ground_attack_hb_13_area_entered"]
-[connection signal="area_entered" from="attackHitboxes/groundAttackHB2" to="." method="_on_ground_attack_hb_2_area_entered"]
 [connection signal="timeout" from="dashCooldown" to="." method="_on_dash_cooldown_timeout"]
 [connection signal="timeout" from="ghostTimer" to="." method="_on_ghost_timer_timeout"]

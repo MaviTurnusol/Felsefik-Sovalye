@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 var attack = 2
 
-var form = 1
+var form = 0
 var momentum: float = 0
 var runningSpeed = 300.0
 var walkingSpeed = 300.0

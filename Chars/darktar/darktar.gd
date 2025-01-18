@@ -17,6 +17,7 @@ enum States { IDLE , ATTACK}
 var state: States = States.IDLE
 
 func _ready():
+	$HarmBoxComp.atk = 5
 	change_direction()
 
 func _process(delta):
@@ -72,9 +73,9 @@ func _on_vision_area_entered(area):
 
 func attack_ready():
 	
-	$CollisionShape2D.global_position.y += 10
-	$Body/HitBoxComp/CollisionShape2D.global_position.y += 10
-	$HitArea/CollisionShape2D.global_position.y += 10
+	#$CollisionShape2D.global_position.y += 10
+	#$Body/HitBoxComp/CollisionShape2D.global_position.y += 10
+	#$HitArea/CollisionShape2D.global_position.y += 10
 	
 	velocity = Vector2.ZERO
 	sprite.play("flip")
@@ -117,9 +118,3 @@ func attacking(delta):
 		can_dash = false
 		await get_tree().create_timer(3).timeout 
 		can_dash = true
-	
-
-
-func _on_hit_area_area_entered(area):
-	if area.has_method("damage"):
-		area.damage(attack)

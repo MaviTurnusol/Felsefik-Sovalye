@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://df56ggibg66c4"]
+
+[ext_resource type="Script" path="res://Chars/components/harm_box_comp.gd" id="1_jebpg"]
+[ext_resource type="Texture2D" uid="uid://cmp430483w4xe" path="res://Chars/components/buff-tf2-engineer.png" id="2_ibdsv"]
+
+[node name="HarmBoxComp" type="Area2D"]
+script = ExtResource("1_jebpg")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="engi" type="Sprite2D" parent="CanvasLayer"]
+visible = false
+position = Vector2(320, 180)
+scale = Vector2(1.66667, 1.125)
+texture = ExtResource("2_ibdsv")
