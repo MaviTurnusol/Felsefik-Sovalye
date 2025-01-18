@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://co2m3ltxbmowe"]
+[gd_scene load_steps=46 format=3 uid="uid://co2m3ltxbmowe"]
 
 [ext_resource type="Texture2D" uid="uid://c6td6xfwdf5xw" path="res://sprites/bgbgbgbg.png" id="1_rfl4b"]
 [ext_resource type="Texture2D" uid="uid://dtuc44ka5ge5d" path="res://sprites/layer7.png" id="1_yuk7m"]
@@ -14,7 +14,6 @@
 [ext_resource type="Texture2D" uid="uid://dny3g4n0ofihr" path="res://sprites/light.png" id="10_ifo25"]
 [ext_resource type="Script" path="res://cam.gd" id="12_8knto"]
 [ext_resource type="PackedScene" uid="uid://bvcqpp47ewia" path="res://Chars/darktar/darktar.tscn" id="12_h885h"]
-[ext_resource type="PackedScene" uid="uid://dm24tuomwputm" path="res://swordtest.tscn" id="15_fpm3n"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lkrob"]
 atlas = ExtResource("9_tlxij")
@@ -356,6 +355,3 @@ energy = 0.6
 range_layer_min = -12
 range_layer_max = 1
 texture = ExtResource("10_ifo25")
-
-[node name="swordtest" parent="." instance=ExtResource("15_fpm3n")]
-position = Vector2(389, 255)
