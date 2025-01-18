@@ -286,12 +286,9 @@ sprite_frames = SubResource("SpriteFrames_rcwxl")
 animation = &"walk"
 autoplay = "walk"
 
-[node name="HealthComp" parent="Body" instance=ExtResource("3_0gpse")]
-MAX_HEALTH = 10.0
-
 [node name="HitBoxComp" parent="Body" node_paths=PackedStringArray("health_comp") instance=ExtResource("4_t4gni")]
 collision_layer = 2
-health_comp = NodePath("../HealthComp")
+health_comp = NodePath("../../HealthComp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/HitBoxComp"]
 position = Vector2(0, 0.958333)
@@ -317,6 +314,9 @@ engineer = true
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HarmBoxComp"]
 position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_ql2dm")
+
+[node name="HealthComp" parent="." instance=ExtResource("3_0gpse")]
+MAX_HEALTH = 10.0
 
 [connection signal="area_entered" from="Body/Vision" to="." method="_on_vision_area_entered"]
 [connection signal="timeout" from="WaitTimer" to="." method="_on_wait_timer_timeout"]

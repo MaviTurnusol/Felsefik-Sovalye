@@ -1,5 +1,6 @@
-[gd_scene load_steps=46 format=3 uid="uid://co2m3ltxbmowe"]
+[gd_scene load_steps=47 format=3 uid="uid://co2m3ltxbmowe"]
 
+[ext_resource type="Script" path="res://arena_1.gd" id="1_l5a3a"]
 [ext_resource type="Texture2D" uid="uid://c6td6xfwdf5xw" path="res://sprites/bgbgbgbg.png" id="1_rfl4b"]
 [ext_resource type="Texture2D" uid="uid://dtuc44ka5ge5d" path="res://sprites/layer7.png" id="1_yuk7m"]
 [ext_resource type="Texture2D" uid="uid://bia5nwkv6sgb5" path="res://sprites/layer6.png" id="2_niyys"]
@@ -218,6 +219,7 @@ size = Vector2(63.6667, 371)
 size = Vector2(49.3334, 370.333)
 
 [node name="arena1" type="Node2D"]
+script = ExtResource("1_l5a3a")
 
 [node name="gameSprites" type="Node2D" parent="."]
 
