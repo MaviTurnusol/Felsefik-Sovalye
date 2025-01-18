@@ -21,7 +21,14 @@ func _process(delta):
 	sprite.material.set_shader_parameter("intensity_factor", visibility)
 	sprite.material.set_shader_parameter("TONE_MAPPING", gradientTexture)
 	#rotation_degrees += delta * 100
+	_handle_hurtbox()
 	pass
+
+func _handle_hurtbox():
+	match sprite.animation:
+		"nightmonster":
+			if sprite.frame == 7:
+				$hitsocks/air.activate(2)
 
 func apppear():
 	var twink = get_tree().create_tween().set_trans(Tween.TRANS_SINE)

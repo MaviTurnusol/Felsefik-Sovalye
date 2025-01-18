@@ -11,7 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bpwefp26mspwr" path="res://sprites/airattackSheetBlurred.png" id="7_1tc2d"]
 [ext_resource type="Texture2D" uid="uid://cuak2e7cng32n" path="res://sprites/atk1conSheetBlurred.png" id="7_pc8p5"]
 [ext_resource type="Texture2D" uid="uid://bltkxvj2pagdm" path="res://sprites/swapsidesSheetBlurred.png" id="7_vdkhl"]
-[ext_resource type="PackedScene" uid="uid://biyeoy2vdy2vl" path="res://Chars/components/hit_box_comp.tscn" id="12_0ag1b"]
+[ext_resource type="PackedScene" uid="uid://df56ggibg66c4" path="res://Chars/components/harm_box_comp.tscn" id="12_pr41d"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ykgxo"]
 atlas = ExtResource("4_apo5m")
@@ -734,32 +734,30 @@ texture = ExtResource("6_el7ly")
 material = ExtResource("2_7ip6n")
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_q21fh")
-animation = &"uooh"
-autoplay = "nightfall"
-frame = 6
-frame_progress = 0.0267025
+animation = &"nightmonster"
+autoplay = "nightmonster"
+frame_progress = 0.510856
 
 [node name="hitsocks" type="Node2D" parent="."]
 
-[node name="air" parent="hitsocks" instance=ExtResource("12_0ag1b")]
-visible = false
+[node name="air" parent="hitsocks" instance=ExtResource("12_pr41d")]
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hitsocks/air"]
 polygon = PackedVector2Array(42, -57, -63, 73, -98, 25, -60, -62, -2, -81)
 
-[node name="nightfall" parent="hitsocks" instance=ExtResource("12_0ag1b")]
+[node name="nightfall" parent="hitsocks" instance=ExtResource("12_pr41d")]
 visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hitsocks/nightfall"]
 polygon = PackedVector2Array(29, -66, -1, 1, -92, 20, -69, -50, 4, -81)
 
-[node name="nightbackshot" parent="hitsocks" instance=ExtResource("12_0ag1b")]
+[node name="nightbackshot" parent="hitsocks" instance=ExtResource("12_pr41d")]
 visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hitsocks/nightbackshot"]
 polygon = PackedVector2Array(-29, -68, -2, 0, 102, 15, 70, -52, 9, -83)
 
-[node name="nightslash" parent="hitsocks" instance=ExtResource("12_0ag1b")]
+[node name="nightslash" parent="hitsocks" instance=ExtResource("12_pr41d")]
 visible = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="hitsocks/nightslash"]

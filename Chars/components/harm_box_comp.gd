@@ -22,7 +22,10 @@ func harm(area):
 
 func activate(duration):
 	monitoring = true
-	await get_tree().create_timer(duration).timeout
+	while duration > 0:
+		await Engine.get_main_loop().process_frame
+		duration -= 1
+		print("sex", duration)
 	monitoring = false
 
 func deactivate(duration):
