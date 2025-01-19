@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=3 uid="uid://8o32a4syyr8h"]
+
+[ext_resource type="Script" path="res://monster_spawner.gd" id="1_f4yon"]
+
+[node name="monsterSpawner" type="Node2D"]
+script = ExtResource("1_f4yon")
+
+[node name="cd" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="waveTimer" type="Timer" parent="."]
+wait_time = 10.0
+autostart = true
+
+[connection signal="timeout" from="cd" to="." method="_on_cd_timeout"]
+[connection signal="timeout" from="waveTimer" to="." method="_on_wave_timer_timeout"]

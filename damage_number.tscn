@@ -1,0 +1,101 @@
+[gd_scene load_steps=6 format=3 uid="uid://eovc172fbg0j"]
+
+[ext_resource type="FontFile" uid="uid://b7glm7o8p2ujn" path="res://Chars/components/PixelifySans-VariableFont_wght.ttf" id="1_1i3w5"]
+[ext_resource type="Script" path="res://damage_number.gd" id="1_hx1kc"]
+
+[sub_resource type="Animation" id="Animation_vkoy5"]
+resource_name = "float"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -90)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:rotation")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.33, 0.66, 1, 1.33, 1.66, 2, 2.3, 2.66, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 0.523599, 0.0, -0.523599, 0.0, 0.523599, 0.0, -0.523599, 0.0, 0.523599]
+}
+
+[sub_resource type="Animation" id="Animation_1g3sr"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Label:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_11wp3"]
+_data = {
+"RESET": SubResource("Animation_1g3sr"),
+"float": SubResource("Animation_vkoy5")
+}
+
+[node name="damageNumber" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 23.0
+script = ExtResource("1_hx1kc")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.5
+anchor_right = 0.375
+anchor_bottom = 1.261
+offset_right = 70.0
+offset_bottom = 58.003
+theme_override_colors/font_color = Color(0.52, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0.392157, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 3
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 8
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/line_spacing = 0
+theme_override_fonts/font = ExtResource("1_1i3w5")
+theme_override_font_sizes/font_size = 23
+text = "123"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_11wp3")
+}
+autoplay = "float"
+
+[node name="Camera2D" type="Camera2D" parent="."]

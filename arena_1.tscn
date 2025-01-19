@@ -1,5 +1,6 @@
-[gd_scene load_steps=46 format=3 uid="uid://co2m3ltxbmowe"]
+[gd_scene load_steps=54 format=3 uid="uid://co2m3ltxbmowe"]
 
+[ext_resource type="Material" uid="uid://hvif3dtkorhk" path="res://swordtest1.tres" id="1_exdt6"]
 [ext_resource type="Texture2D" uid="uid://c6td6xfwdf5xw" path="res://sprites/bgbgbgbg.png" id="1_rfl4b"]
 [ext_resource type="Texture2D" uid="uid://dtuc44ka5ge5d" path="res://sprites/layer7.png" id="1_yuk7m"]
 [ext_resource type="Texture2D" uid="uid://bia5nwkv6sgb5" path="res://sprites/layer6.png" id="2_niyys"]
@@ -13,7 +14,10 @@
 [ext_resource type="Texture2D" uid="uid://h5fcf7ohrbkr" path="res://sprites/sallananadamlar.png" id="9_tlxij"]
 [ext_resource type="Texture2D" uid="uid://dny3g4n0ofihr" path="res://sprites/light.png" id="10_ifo25"]
 [ext_resource type="Script" path="res://cam.gd" id="12_8knto"]
-[ext_resource type="PackedScene" uid="uid://bvcqpp47ewia" path="res://Chars/darktar/darktar.tscn" id="12_h885h"]
+[ext_resource type="Shader" uid="uid://bf8m3jpehiedj" path="res://Chars/darktar/hitflash.tres" id="13_0iiax"]
+[ext_resource type="PackedScene" uid="uid://8o32a4syyr8h" path="res://monster_spawner.tscn" id="14_41khx"]
+[ext_resource type="PackedScene" uid="uid://brc66jvx41a04" path="res://hud.tscn" id="16_ibu6t"]
+[ext_resource type="PackedScene" uid="uid://cd030yhrfg26n" path="res://Chars/darkzip/darkzip.tscn" id="18_wmpnv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lkrob"]
 atlas = ExtResource("9_tlxij")
@@ -206,16 +210,34 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bie86"]
-size = Vector2(707.667, 24.3333)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_82mfr"]
-size = Vector2(708, 47.3333)
+size = Vector2(951, 24.3333)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bdf8w"]
-size = Vector2(63.6667, 371)
+size = Vector2(124, 158)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_gh4vi"]
-size = Vector2(49.3334, 370.333)
+size = Vector2(137, 171.999)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xjpl4"]
+size = Vector2(33, 359)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_78r00"]
+size = Vector2(35, 348)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cw16q"]
+size = Vector2(645, 43)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_miiql"]
+resource_local_to_scene = true
+shader = ExtResource("13_0iiax")
+shader_parameter/enabled = false
+shader_parameter/ColorParameter = Color(1, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_otv4p"]
+resource_local_to_scene = true
+shader = ExtResource("13_0iiax")
+shader_parameter/enabled = false
+shader_parameter/ColorParameter = Color(1, 0, 0, 1)
 
 [node name="arena1" type="Node2D"]
 
@@ -235,6 +257,7 @@ motion_scale = Vector2(0.15, 0.15)
 motion_mirroring = Vector2(441, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="gameSprites/ParallaxBackground/ParallaxLayer"]
+material = ExtResource("1_exdt6")
 texture = ExtResource("1_yuk7m")
 centered = false
 
@@ -311,39 +334,59 @@ scale = Vector2(2, 2)
 texture = ExtResource("1_rfl4b")
 centered = false
 
+[node name="Sprite2D" type="Sprite2D" parent="gameSprites"]
+z_index = 1
+z_as_relative = false
+position = Vector2(-120, -10)
+scale = Vector2(2, 2)
+texture = ExtResource("8_12pyy")
+centered = false
+
 [node name="boxe" type="StaticBody2D" parent="gameSprites"]
-collision_layer = 4
-collision_mask = 2
+collision_layer = 15
+collision_mask = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="gameSprites/boxe"]
-position = Vector2(312.5, 348.167)
+position = Vector2(329.5, 348.167)
 shape = SubResource("RectangleShape2D_bie86")
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="gameSprites/boxe"]
-position = Vector2(312.333, 13.6667)
-shape = SubResource("RectangleShape2D_82mfr")
-
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="gameSprites/boxe"]
-position = Vector2(-27.8333, 175.5)
-shape = SubResource("RectangleShape2D_bdf8w")
-
-[node name="CollisionShape2D5" type="CollisionShape2D" parent="gameSprites/boxe"]
-position = Vector2(-27.8333, 175.5)
+position = Vector2(-58, 69)
 shape = SubResource("RectangleShape2D_bdf8w")
 
 [node name="CollisionShape2D4" type="CollisionShape2D" parent="gameSprites/boxe"]
-position = Vector2(656.667, 175.167)
+position = Vector2(700.5, 76.0003)
 shape = SubResource("RectangleShape2D_gh4vi")
 
-[node name="player" parent="gameSprites" instance=ExtResource("3_d8n27")]
-position = Vector2(325, 221)
-scale = Vector2(2, 2)
+[node name="CollisionShape2D5" type="CollisionShape2D" parent="gameSprites/boxe"]
+position = Vector2(-133.5, 169.5)
+shape = SubResource("RectangleShape2D_xjpl4")
 
-[node name="Darktar" parent="gameSprites" instance=ExtResource("12_h885h")]
-position = Vector2(533, 299)
+[node name="CollisionShape2D6" type="CollisionShape2D" parent="gameSprites/boxe"]
+position = Vector2(784.5, 162)
+shape = SubResource("RectangleShape2D_78r00")
+
+[node name="boxeGate" type="StaticBody2D" parent="gameSprites"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="gameSprites/boxeGate"]
+polygon = PackedVector2Array(4, 148, -21, 172, -20, 336, -56, 336, -60, 148)
+
+[node name="CollisionPolygon2D2" type="CollisionPolygon2D" parent="gameSprites/boxeGate"]
+polygon = PackedVector2Array(632, 162, 652, 184, 646, 336, 666, 336, 682, 162)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="gameSprites/boxeGate"]
+position = Vector2(312.5, 11.5)
+shape = SubResource("RectangleShape2D_cw16q")
+
+[node name="player" parent="gameSprites" instance=ExtResource("3_d8n27")]
+material = SubResource("ShaderMaterial_miiql")
+position = Vector2(58, 298)
+scale = Vector2(2, 2)
 
 [node name="CanvasModulate" type="CanvasModulate" parent="gameSprites"]
 color = Color(0.396078, 0.396078, 0.396078, 1)
+
+[node name="monsterSpawner" parent="gameSprites" instance=ExtResource("14_41khx")]
 
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(320, 180)
@@ -355,3 +398,9 @@ energy = 0.6
 range_layer_min = -12
 range_layer_max = 1
 texture = ExtResource("10_ifo25")
+
+[node name="HUD" parent="." instance=ExtResource("16_ibu6t")]
+
+[node name="Darkzip" parent="." instance=ExtResource("18_wmpnv")]
+material = SubResource("ShaderMaterial_otv4p")
+position = Vector2(711, 312)

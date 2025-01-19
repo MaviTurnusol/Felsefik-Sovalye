@@ -1,6 +1,6 @@
 extends CharacterBody2D
 
-var attack = 2
+var attack = 300.0
 
 var form = 0
 var momentum: float = 0
@@ -23,12 +23,21 @@ var jumpHoldForce = 1200.0
 var nextAttack = null
 var animEnded = true
 var willAttack = true
-# Get the gravity from the project settings to be synced with RigidBody nodes.
+
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var anima = $anima
 @onready var dashCooldown = $dashCooldown
+
+@onready var harmBoxGround13 = $attackHitboxes/harmboxground13
+@onready var harmBoxGround2 =  $attackHitboxes/harmboxground2
+@onready var harmBoxAir2 = $attackHitboxes/harmboxair
 func _ready():
 	UnlimitedRulebook.player = self
+	harmBoxAir2.atk = 4
+	harmBoxGround13.atk = 3
+	harmBoxGround2.atk = 2
+	$HitBoxComp.father = self
+	
 func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
@@ -42,6 +51,7 @@ func _physics_process(delta):
 	handle_attacks()
 	handle_dashing()
 	handle_stuff()
+	handle_harming(delta)
 	move_and_slide()
 
 func create_ghost():
@@ -81,23 +91,52 @@ func handle_dashing():
 		else:
 			delayedDash = true
 	if isDashing:
+		$HitBoxComp.monitorable = false
 		if $ghostTimer.is_stopped():
 			$ghostTimer.start()
 			create_ghost()
 	else:
+		$HitBoxComp.monitorable = true
 		$ghostTimer.stop()
 
 func handle_stuff():
 	if anima.flip_h == false:
 		$attackHitboxes.scale.x = 1
-		$attackHitboxes.position = Vector2(0, 0)
+		$HitBoxComp.position = Vector2(0, 0)
+		#$attackHitboxes.position = Vector2(0, 0)
 	else:
 		$attackHitboxes.scale.x = -1
-		$attackHitboxes.position = Vector2(-10, 0)
+		#$HitBoxComp.position = Vector2(-11, 0)
+		#$attackHitboxes.position = Vector2(-12, 0)
+
+func handle_harming(delta):
+	var viuuu = sqrt((velocity.x*velocity.x)+(velocity.y*velocity.y))
+	if anima.animation in ["whiteairattack1", "whiteattack1", "redairattack1", "redattack1"]:
+		if anima.frame == 3:
+			harmBoxGround13.atk = viuuu+attack+randf_range(0, 100)
+			harmBoxGround13.monitoring = true
+	if anima.animation in ["whiteairattack3", "whiteattack3", "redairattack3", "redattack3"]:
+		if anima.frame == 0:
+			harmBoxGround13.atk = viuuu+attack+randf_range(0, 100)
+			harmBoxGround13.monitoring = true
+	if anima.animation not in ["whiteairattack3", "whiteattack3", "redairattack3", "redattack3", "whiteairattack1", "whiteattack1", "redairattack1", "redattack1"]:
+		harmBoxGround13.monitoring = false
+	if anima.animation in ["whiteattack2", "redattack2"]:
+		if anima.frame == 0:
+			harmBoxGround2.atk = viuuu+attack+randf_range(0, 200)
+			harmBoxGround2.monitoring = true
+		else:
+			harmBoxGround2.monitoring = false
+	if anima.animation in ["whiteairattack2", "redairattack2"]:
+		if anima.frame == 0:
+			harmBoxAir2.atk = viuuu+attack+randf_range(0, 200)
+			harmBoxAir2.monitoring = true
+		else:
+			harmBoxAir2.monitoring = false
 
 func handle_attacks():
 	if Input.is_action_just_pressed("attack"):
-		if is_on_floor() && !isDashing:
+		if is_on_floor():
 			#isAttacking = true
 			if form == 1:
 				if anima.animation == "redairattack1" or anima.animation == "redattack1":
@@ -297,12 +336,6 @@ func _on_ghost_timer_timeout():
 		$ghostTimer.start()
 	pass # Replace with function body.
 
-
-func _on_ground_attack_hb_13_area_entered(area):
-	if area.has_method("damage"):
-		area.damage(attack)
-
-
-func _on_ground_attack_hb_2_area_entered(area):
-	if area.has_method("damage"):
-		area.damage(attack)
+func knockback(attacker):
+	dash = true
+	velocity = attacker.global_position.direction_to(Vector2(global_position.x-9, global_position.y)).normalized()*900

@@ -1,8 +1,9 @@
-[gd_scene load_steps=154 format=3 uid="uid://ds2os4gegqoe4"]
+[gd_scene load_steps=157 format=3 uid="uid://ds2os4gegqoe4"]
 
 [ext_resource type="Texture2D" uid="uid://cfts51nga1se0" path="res://sprites/redatk1Sheet.png" id="1_7w3nq"]
 [ext_resource type="Script" path="res://player.gd" id="1_72lws"]
 [ext_resource type="Texture2D" uid="uid://b7tnr5orxl7ma" path="res://sprites/redrunSheet.png" id="1_enhe4"]
+[ext_resource type="Shader" uid="uid://bf8m3jpehiedj" path="res://Chars/darktar/hitflash.tres" id="1_kfy06"]
 [ext_resource type="Texture2D" uid="uid://bcedcbs6oafqe" path="res://sprites/whiterunSheet.png" id="1_xjpjy"]
 [ext_resource type="Texture2D" uid="uid://bwb4lurb152h0" path="res://sprites/redIdleChangedSheet.png" id="2_6gcy8"]
 [ext_resource type="Texture2D" uid="uid://dlxh1285d0puk" path="res://sprites/redatk2Sheet.png" id="2_uxoyl"]
@@ -23,8 +24,15 @@
 [ext_resource type="Texture2D" uid="uid://ciew3r5mjp6n3" path="res://sprites/redatk2bloodsplashSheet.png" id="14_eq2ed"]
 [ext_resource type="Texture2D" uid="uid://cu1gbq8bt7n4q" path="res://sprites/whiteairatk3Sheet.png" id="14_qggu5"]
 [ext_resource type="Texture2D" uid="uid://chequqw1x5ymk" path="res://sprites/whitewalkSheet.png" id="14_s2ifu"]
+[ext_resource type="PackedScene" uid="uid://df56ggibg66c4" path="res://Chars/components/harm_box_comp.tscn" id="24_dp0b7"]
 [ext_resource type="PackedScene" uid="uid://djs2661afaea0" path="res://Chars/components/health_comp.tscn" id="24_ok6dk"]
 [ext_resource type="PackedScene" uid="uid://biyeoy2vdy2vl" path="res://Chars/components/hit_box_comp.tscn" id="25_22h6i"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vfya0"]
+resource_local_to_scene = true
+shader = ExtResource("1_kfy06")
+shader_parameter/enabled = false
+shader_parameter/ColorParameter = Color(1, 0, 0, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_kognc"]
 atlas = ExtResource("2_v5k7q")
@@ -1034,16 +1042,21 @@ animations = [{
 size = Vector2(10, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_34qjh"]
+size = Vector2(9, 11.75)
 
 [node name="player" type="CharacterBody2D" groups=["player"]]
-collision_mask = 7
+material = SubResource("ShaderMaterial_vfya0")
+collision_mask = 5
 script = ExtResource("1_72lws")
 
 [node name="anima" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
 position = Vector2(-6, -12)
 sprite_frames = SubResource("SpriteFrames_3nhkc")
-animation = &"redairattack1"
+animation = &"whiteidle"
 autoplay = "whiteidle"
+frame_progress = 0.56455
+flip_h = true
 
 [node name="blood" type="AnimatedSprite2D" parent="."]
 visible = false
@@ -1059,15 +1072,34 @@ shape = SubResource("RectangleShape2D_dloql")
 
 [node name="attackHitboxes" type="Node2D" parent="."]
 
-[node name="groundAttackHB13" type="Area2D" parent="attackHitboxes"]
+[node name="harmboxground13" parent="attackHitboxes" instance=ExtResource("24_dp0b7")]
+position = Vector2(-6, 6)
+collision_layer = 18
+collision_mask = 18
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="attackHitboxes/groundAttackHB13"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="attackHitboxes/harmboxground13"]
+position = Vector2(6, -6)
 polygon = PackedVector2Array(-9, -26, 9, -23, 18, -12, 17, -4, 12, 0, -10, -2, -20, -8, -3, -7, 7, -11, 3, -20)
 
-[node name="groundAttackHB2" type="Area2D" parent="attackHitboxes"]
+[node name="harmboxground2" parent="attackHitboxes" instance=ExtResource("24_dp0b7")]
+visible = false
+position = Vector2(-6, 6)
+collision_layer = 18
+collision_mask = 18
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="attackHitboxes/groundAttackHB2"]
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="attackHitboxes/harmboxground2"]
+position = Vector2(6, -6)
 polygon = PackedVector2Array(-18, -13, -12, -24, 1, -26, 14, -16, 16, 0, 2, -4, 5, -9, 0, -15)
+
+[node name="harmboxair" parent="attackHitboxes" instance=ExtResource("24_dp0b7")]
+visible = false
+position = Vector2(-6, 6)
+collision_layer = 2
+collision_mask = 18
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="attackHitboxes/harmboxair"]
+position = Vector2(6, -6)
+polygon = PackedVector2Array(-19, -12, -9, -24, 3, -24, 15, -13, 13, 5, -4, 14, -3, -2)
 
 [node name="dashCooldown" type="Timer" parent="."]
 wait_time = 0.3
@@ -1077,13 +1109,14 @@ one_shot = true
 wait_time = 0.033
 
 [node name="HealthComp" parent="." instance=ExtResource("24_ok6dk")]
-MAX_HEALTH = 100.0
+MAX_HEALTH = 1000.0
 
 [node name="HitBoxComp" parent="." node_paths=PackedStringArray("health_comp") instance=ExtResource("25_22h6i")]
+position = Vector2(-11, 0)
 health_comp = NodePath("../HealthComp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxComp"]
-position = Vector2(-1, -10)
+position = Vector2(-0.5, -7.125)
 shape = SubResource("RectangleShape2D_34qjh")
 
 [connection signal="animation_finished" from="anima" to="." method="_on_anima_animation_finished"]

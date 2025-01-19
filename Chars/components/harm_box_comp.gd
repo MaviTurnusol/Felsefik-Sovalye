@@ -11,14 +11,15 @@ func _ready():
 
 func harm(area):
 	if area.has_method("damage"):
-		area.damage(atk)
+		area.damage(atk, self)
 		if engineer:
 			$CanvasLayer/engi.visible = true
 			$CanvasLayer/engi.modulate = Color.WHITE
 			var twink = get_tree().create_tween().set_trans(Tween.TRANS_SINE)
 			twink.tween_property($CanvasLayer/engi, "modulate", Color.TRANSPARENT, 0.2)
 			twink.tween_property($CanvasLayer/engi, "visible", false, 0)
-			
+	if area.has_method("intel"):
+		area.intel(self)
 
 func activate(duration):
 	monitoring = true

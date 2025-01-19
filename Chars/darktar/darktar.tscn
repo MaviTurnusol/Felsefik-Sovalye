@@ -1,5 +1,6 @@
-[gd_scene load_steps=46 format=3 uid="uid://bvcqpp47ewia"]
+[gd_scene load_steps=48 format=3 uid="uid://bvcqpp47ewia"]
 
+[ext_resource type="Shader" uid="uid://bf8m3jpehiedj" path="res://Chars/darktar/hitflash.tres" id="1_0tatk"]
 [ext_resource type="Script" path="res://Chars/darktar/darktar.gd" id="1_k28q4"]
 [ext_resource type="Texture2D" uid="uid://b8ptagths50y0" path="res://Chars/darktar/darktarflip.png" id="2_tg8ui"]
 [ext_resource type="Texture2D" uid="uid://cq0j2chnuyyth" path="res://Chars/darktar/darktarspin.png" id="2_uparp"]
@@ -8,6 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://biyeoy2vdy2vl" path="res://Chars/components/hit_box_comp.tscn" id="4_t4gni"]
 [ext_resource type="Texture2D" uid="uid://ht52vy4mq2rn" path="res://sprites/darkmantarwalkSheet.png" id="5_bwgo4"]
 [ext_resource type="PackedScene" uid="uid://df56ggibg66c4" path="res://Chars/components/harm_box_comp.tscn" id="8_7cvmw"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_eiaxo"]
+resource_local_to_scene = true
+shader = ExtResource("1_0tatk")
+shader_parameter/enabled = false
+shader_parameter/ColorParameter = Color(1, 0, 0, 1)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pd081"]
 size = Vector2(15, 30)
@@ -236,7 +243,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"spin",
-"speed": 20.0
+"speed": 40.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -269,9 +276,10 @@ size = Vector2(139, 89)
 size = Vector2(20, 31.3333)
 
 [node name="Darktar" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_eiaxo")
 scale = Vector2(1.5, 1.5)
 collision_layer = 2
-collision_mask = 7
+collision_mask = 6
 script = ExtResource("1_k28q4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -279,18 +287,22 @@ position = Vector2(0.666667, 1)
 shape = SubResource("RectangleShape2D_pd081")
 
 [node name="Body" type="Node2D" parent="."]
+use_parent_material = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Body"]
+use_parent_material = true
 position = Vector2(0, -5)
 sprite_frames = SubResource("SpriteFrames_rcwxl")
-animation = &"walk"
+animation = &"spin"
 autoplay = "walk"
+frame_progress = 0.395934
 
 [node name="HealthComp" parent="Body" instance=ExtResource("3_0gpse")]
-MAX_HEALTH = 10.0
+MAX_HEALTH = 4000.0
 
 [node name="HitBoxComp" parent="Body" node_paths=PackedStringArray("health_comp") instance=ExtResource("4_t4gni")]
 collision_layer = 2
+collision_mask = 2
 health_comp = NodePath("../HealthComp")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Body/HitBoxComp"]
@@ -312,7 +324,6 @@ one_shot = true
 
 [node name="HarmBoxComp" parent="." instance=ExtResource("8_7cvmw")]
 alwaysActive = true
-engineer = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HarmBoxComp"]
 position = Vector2(0, 1)

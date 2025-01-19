@@ -734,10 +734,10 @@ texture = ExtResource("6_el7ly")
 material = ExtResource("2_7ip6n")
 scale = Vector2(0.1, 0.1)
 sprite_frames = SubResource("SpriteFrames_q21fh")
-animation = &"uooh"
+animation = &"nightfall"
 autoplay = "nightfall"
-frame = 6
-frame_progress = 0.0267025
+frame = 1
+frame_progress = 0.863671
 
 [node name="hitsocks" type="Node2D" parent="."]
 
