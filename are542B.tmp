@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://co2m3ltxbmowe"]
+[gd_scene load_steps=54 format=3 uid="uid://co2m3ltxbmowe"]
 
 [ext_resource type="Material" uid="uid://hvif3dtkorhk" path="res://swordtest1.tres" id="1_exdt6"]
 [ext_resource type="Texture2D" uid="uid://c6td6xfwdf5xw" path="res://sprites/bgbgbgbg.png" id="1_rfl4b"]
@@ -6,7 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://bia5nwkv6sgb5" path="res://sprites/layer6.png" id="2_niyys"]
 [ext_resource type="Texture2D" uid="uid://bniailm8twa86" path="res://sprites/layer5.png" id="3_0r0fm"]
 [ext_resource type="PackedScene" uid="uid://ds2os4gegqoe4" path="res://player.tscn" id="3_d8n27"]
-[ext_resource type="Script" path="res://infoLabel.gd" id="3_hh14e"]
 [ext_resource type="Texture2D" uid="uid://doswfotosm5un" path="res://sprites/layer4.png" id="4_cnxyb"]
 [ext_resource type="Texture2D" uid="uid://mh175lit0x" path="res://sprites/layer3.png" id="5_2863c"]
 [ext_resource type="Texture2D" uid="uid://bg10yym811wd5" path="res://sprites/layer2.png" id="6_baf1w"]
@@ -18,6 +17,7 @@
 [ext_resource type="Shader" uid="uid://bf8m3jpehiedj" path="res://Chars/darktar/hitflash.tres" id="13_0iiax"]
 [ext_resource type="PackedScene" uid="uid://8o32a4syyr8h" path="res://monster_spawner.tscn" id="14_41khx"]
 [ext_resource type="PackedScene" uid="uid://brc66jvx41a04" path="res://hud.tscn" id="16_ibu6t"]
+[ext_resource type="PackedScene" uid="uid://cd030yhrfg26n" path="res://Chars/darkzip/darkzip.tscn" id="18_wmpnv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lkrob"]
 atlas = ExtResource("9_tlxij")
@@ -233,6 +233,12 @@ shader = ExtResource("13_0iiax")
 shader_parameter/enabled = false
 shader_parameter/ColorParameter = Color(1, 0, 0, 1)
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_otv4p"]
+resource_local_to_scene = true
+shader = ExtResource("13_0iiax")
+shader_parameter/enabled = false
+shader_parameter/ColorParameter = Color(1, 0, 0, 1)
+
 [node name="arena1" type="Node2D"]
 
 [node name="gameSprites" type="Node2D" parent="."]
@@ -254,15 +260,6 @@ motion_mirroring = Vector2(441, 0)
 material = ExtResource("1_exdt6")
 texture = ExtResource("1_yuk7m")
 centered = false
-
-[node name="infoLabel" type="Label" parent="gameSprites/ParallaxBackground/ParallaxLayer"]
-offset_left = 256.5
-offset_top = 61.5
-offset_right = 296.5
-offset_bottom = 84.5
-text = "GOTTN
-SEX"
-script = ExtResource("3_hh14e")
 
 [node name="ParallaxLayer2" type="ParallaxLayer" parent="gameSprites/ParallaxBackground"]
 motion_scale = Vector2(0.2, 0.2)
@@ -329,6 +326,8 @@ frame = 11
 frame_progress = 0.0619832
 centered = false
 
+[node name="CanvasLayer" type="CanvasLayer" parent="gameSprites"]
+
 [node name="bgbgbg" type="Sprite2D" parent="gameSprites"]
 visible = false
 scale = Vector2(2, 2)
@@ -389,13 +388,6 @@ color = Color(0.396078, 0.396078, 0.396078, 1)
 
 [node name="monsterSpawner" parent="gameSprites" instance=ExtResource("14_41khx")]
 
-[node name="ColorRect" type="ColorRect" parent="gameSprites"]
-offset_left = -125.0
-offset_top = -118.0
-offset_right = 769.0
-offset_bottom = -8.0
-color = Color(0.0431373, 0.0431373, 0.0431373, 1)
-
 [node name="cam" type="Camera2D" parent="."]
 position = Vector2(320, 180)
 script = ExtResource("12_8knto")
@@ -408,3 +400,7 @@ range_layer_max = 1
 texture = ExtResource("10_ifo25")
 
 [node name="HUD" parent="." instance=ExtResource("16_ibu6t")]
+
+[node name="Darkzip" parent="." instance=ExtResource("18_wmpnv")]
+material = SubResource("ShaderMaterial_otv4p")
+position = Vector2(711, 312)

@@ -116,4 +116,5 @@ func death():
 	sprite.pause()
 
 func knockback(attacker):
-	velocity.x = -sign(attacker.global_position.x - global_position.x)*200
+	#velocity.x = -sign(attacker.global_position.x - global_position.x)*200
+	pass

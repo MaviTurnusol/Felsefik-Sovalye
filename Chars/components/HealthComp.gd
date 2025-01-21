@@ -4,6 +4,7 @@ extends Node2D
 @export var MAX_HEALTH : float
 var health : set = set_health
 var father
+var berserkiumHealthValue
 
 signal healthChanged(oldVal, newVal)
 
@@ -15,12 +16,23 @@ func set_health(value):
 		if father:
 			if father.has_method("death"):
 				father.death()
+	if UnlimitedRulebook.player:
+		if father == UnlimitedRulebook.player:
+			if father.form == 0:
+				if value <= berserkiumHealthValue/5:
+					father.form = 1
+					value = berserkiumHealthValue/5
+					healthChanged.emit(health, value)
+					health = value
+					berserkiumHealthValue = -10
+					UnlimitedRulebook.hud.berserkPoint = -10
 	if value != health:
 		healthChanged.emit(health, value)
 		health = value
 
 func _ready():
 	health = MAX_HEALTH
+	berserkiumHealthValue = MAX_HEALTH
 
 func damage(attack):
 	health -= attack

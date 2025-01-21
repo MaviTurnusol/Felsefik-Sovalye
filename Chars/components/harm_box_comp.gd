@@ -2,7 +2,8 @@ extends Area2D
 
 @export var alwaysActive = false
 @export var engineer = false
-var atk = 0
+@export var atk = 0
+@export var father : CharacterBody2D
 
 func _ready():
 	if !alwaysActive:

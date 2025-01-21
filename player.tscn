@@ -1,4 +1,4 @@
-[gd_scene load_steps=157 format=3 uid="uid://ds2os4gegqoe4"]
+[gd_scene load_steps=156 format=3 uid="uid://ds2os4gegqoe4"]
 
 [ext_resource type="Texture2D" uid="uid://cfts51nga1se0" path="res://sprites/redatk1Sheet.png" id="1_7w3nq"]
 [ext_resource type="Script" path="res://player.gd" id="1_72lws"]
@@ -564,7 +564,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_608fy")
 }],
-"loop": true,
+"loop": false,
 "name": &"redairattack3",
 "speed": 12.0
 }, {
@@ -983,41 +983,34 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kgyy1"]
-atlas = ExtResource("13_rc5x7")
-region = Rect2(0, 0, 107, 34)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_otp2o"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_k0pkg"]
 atlas = ExtResource("13_rc5x7")
 region = Rect2(107, 0, 107, 34)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ujjbc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ay0nk"]
 atlas = ExtResource("13_rc5x7")
 region = Rect2(214, 0, 107, 34)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_thoso"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_dokvl"]
 atlas = ExtResource("14_eq2ed")
-region = Rect2(0, 0, 142, 34)
+region = Rect2(107, 0, 107, 34)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2nce7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_exev2"]
 atlas = ExtResource("14_eq2ed")
-region = Rect2(142, 0, 142, 34)
+region = Rect2(214, 0, 107, 34)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ccr3c"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ab3w0"]
 atlas = ExtResource("14_eq2ed")
-region = Rect2(284, 0, 142, 34)
+region = Rect2(321, 0, 107, 34)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_j4rcp"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kgyy1")
+"texture": SubResource("AtlasTexture_k0pkg")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_otp2o")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ujjbc")
+"texture": SubResource("AtlasTexture_ay0nk")
 }],
 "loop": false,
 "name": &"splash13",
@@ -1025,17 +1018,17 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_thoso")
+"texture": SubResource("AtlasTexture_dokvl")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2nce7")
+"texture": SubResource("AtlasTexture_exev2")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ccr3c")
+"texture": SubResource("AtlasTexture_ab3w0")
 }],
-"loop": true,
+"loop": false,
 "name": &"splash2",
-"speed": 5.0
+"speed": 12.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dloql"]
@@ -1053,17 +1046,16 @@ script = ExtResource("1_72lws")
 use_parent_material = true
 position = Vector2(-6, -12)
 sprite_frames = SubResource("SpriteFrames_3nhkc")
-animation = &"whiteidle"
+animation = &"whiteairattack1"
 autoplay = "whiteidle"
-frame_progress = 0.56455
-flip_h = true
+frame = 3
+frame_progress = 0.810887
 
 [node name="blood" type="AnimatedSprite2D" parent="."]
 visible = false
-position = Vector2(-6, -12)
+position = Vector2(-5, -12)
 sprite_frames = SubResource("SpriteFrames_j4rcp")
 animation = &"splash13"
-frame = 2
 frame_progress = 1.0
 
 [node name="collisionBox" type="CollisionShape2D" parent="."]
@@ -1072,30 +1064,33 @@ shape = SubResource("RectangleShape2D_dloql")
 
 [node name="attackHitboxes" type="Node2D" parent="."]
 
-[node name="harmboxground13" parent="attackHitboxes" instance=ExtResource("24_dp0b7")]
+[node name="harmboxground13" parent="attackHitboxes" node_paths=PackedStringArray("father") instance=ExtResource("24_dp0b7")]
 position = Vector2(-6, 6)
 collision_layer = 18
 collision_mask = 18
+father = NodePath("../..")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="attackHitboxes/harmboxground13"]
 position = Vector2(6, -6)
-polygon = PackedVector2Array(-9, -26, 9, -23, 18, -12, 17, -4, 12, 0, -10, -2, -20, -8, -3, -7, 7, -11, 3, -20)
+polygon = PackedVector2Array(-9, -26, 9, -23, 18, -12, 12, 1, -10, 0, -20, -5, -20, -8, -3, -7, 5, -11, -13, -25)
 
-[node name="harmboxground2" parent="attackHitboxes" instance=ExtResource("24_dp0b7")]
+[node name="harmboxground2" parent="attackHitboxes" node_paths=PackedStringArray("father") instance=ExtResource("24_dp0b7")]
 visible = false
 position = Vector2(-6, 6)
 collision_layer = 18
 collision_mask = 18
+father = NodePath("../..")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="attackHitboxes/harmboxground2"]
 position = Vector2(6, -6)
 polygon = PackedVector2Array(-18, -13, -12, -24, 1, -26, 14, -16, 16, 0, 2, -4, 5, -9, 0, -15)
 
-[node name="harmboxair" parent="attackHitboxes" instance=ExtResource("24_dp0b7")]
+[node name="harmboxair" parent="attackHitboxes" node_paths=PackedStringArray("father") instance=ExtResource("24_dp0b7")]
 visible = false
 position = Vector2(-6, 6)
 collision_layer = 2
 collision_mask = 18
+father = NodePath("../..")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="attackHitboxes/harmboxair"]
 position = Vector2(6, -6)
@@ -1119,7 +1114,22 @@ health_comp = NodePath("../HealthComp")
 position = Vector2(-0.5, -7.125)
 shape = SubResource("RectangleShape2D_34qjh")
 
+[node name="erectileDysfunction" type="Timer" parent="."]
+wait_time = 20.0
+one_shot = true
+
+[node name="bleed" type="Timer" parent="."]
+one_shot = true
+
+[node name="guardianAngel" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="animation_finished" from="anima" to="." method="_on_anima_animation_finished"]
 [connection signal="animation_looped" from="anima" to="." method="_on_anima_animation_looped"]
+[connection signal="animation_finished" from="blood" to="." method="_on_blood_animation_finished"]
 [connection signal="timeout" from="dashCooldown" to="." method="_on_dash_cooldown_timeout"]
 [connection signal="timeout" from="ghostTimer" to="." method="_on_ghost_timer_timeout"]
+[connection signal="timeout" from="erectileDysfunction" to="." method="_on_erectile_dysfunction_timeout"]
+[connection signal="timeout" from="bleed" to="." method="_on_bleed_timeout"]
+[connection signal="timeout" from="guardianAngel" to="." method="_on_guardian_angel_timeout"]

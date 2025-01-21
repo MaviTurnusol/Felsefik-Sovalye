@@ -12,14 +12,16 @@ var fuckindead = false
 
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
-enum States { IDLE, RUN, ATTACK, FLY, SPIN}  
-var state: States = States.IDLE
+enum States { IDLE, RUN, ATTACK, FLY, SPIN, DEAD, ENTER}  
+var state: States = States.ENTER
 
 func _ready():
 	$HarmBoxComp.atk = 50
 	$Body/HitBoxComp.father = self
 	$Body/HealthComp.father = self
 	change_direction()
+	await get_tree().create_timer(0.8).timeout
+	state = States.RUN
 
 func _process(delta):
 	if fuckindead:
@@ -32,7 +34,10 @@ func _process(delta):
 		scaletwink.tween_callback(queue_free)
 		move_and_slide()
 	else:
-		if state == States.IDLE:
+		if state == States.ENTER:
+			velocity.x = lerp(velocity.x, sign(320-global_position.x) * speed, 0.05)
+			move_and_slide()
+		elif state == States.IDLE:
 			walking(delta)
 			move_and_slide()
 		elif state == States.RUN:
@@ -52,6 +57,14 @@ func _process(delta):
 			sprite.play("spin")
 		elif state == States.ATTACK:
 			attacking(delta)
+		elif state == States.DEAD:
+			var scaletwink = get_tree().create_tween()
+			var colortwink = get_tree().create_tween()
+			scaletwink.tween_property(self, "scale", Vector2(8, 8), 6)
+			colortwink.tween_property(self, "modulate", Color.BLACK, 4)
+			rotation_degrees += delta * randf_range(-256, 256)
+			scaletwink.tween_callback(queue_free)
+			move_and_slide()
 		velocity.y += gravity * delta * 1.4
 		turn()
 
@@ -183,7 +196,8 @@ func death():
 	$CollisionShape2D.set_deferred("disabled", true)
 	$HarmBoxComp.monitoring = false
 	$Body/HitBoxComp.monitoring = false
-	fuckindead = true
+	#fuckindead = true
+	state = States.DEAD
 	velocity.y -= 500
 	velocity.x = randf_range(-400, 400)
 	sprite.pause()

@@ -1,8 +1,9 @@
 extends CharacterBody2D
 
+var nuts = false
 var attack = 300.0
 
-var form = 0
+var form = 0 : set = GRIFFIIIIITTH
 var momentum: float = 0
 var runningSpeed = 300.0
 var walkingSpeed = 300.0
@@ -31,12 +32,28 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 @onready var harmBoxGround13 = $attackHitboxes/harmboxground13
 @onready var harmBoxGround2 =  $attackHitboxes/harmboxground2
 @onready var harmBoxAir2 = $attackHitboxes/harmboxair
+
+func GRIFFIIIIITTH(value):
+	if form == value:
+		return
+	if value == 0:
+		$HealthComp.berserkiumHealthValue = $HealthComp.health
+		UnlimitedRulebook.hud.berserkPoint = $HealthComp.berserkiumHealthValue/5
+	if value == 1:
+		$erectileDysfunction.wait_time = 20 + UnlimitedRulebook.wave/5
+		$erectileDysfunction.start()
+		$HitBoxComp.active = false
+		$guardianAngel.start()
+		Engine.time_scale = 1.1
+	form = value
+
 func _ready():
 	UnlimitedRulebook.player = self
 	harmBoxAir2.atk = 4
 	harmBoxGround13.atk = 3
 	harmBoxGround2.atk = 2
 	$HitBoxComp.father = self
+	$HealthComp.father = self
 	
 func _physics_process(delta):
 	# Add the gravity.
@@ -50,7 +67,7 @@ func _physics_process(delta):
 	handle_walls()
 	handle_attacks()
 	handle_dashing()
-	handle_stuff()
+	handle_stuff(delta)
 	handle_harming(delta)
 	move_and_slide()
 
@@ -99,7 +116,8 @@ func handle_dashing():
 		$HitBoxComp.monitorable = true
 		$ghostTimer.stop()
 
-func handle_stuff():
+func handle_stuff(delta):
+	$blood.flip_h = anima.flip_h
 	if anima.flip_h == false:
 		$attackHitboxes.scale.x = 1
 		$HitBoxComp.position = Vector2(0, 0)
@@ -113,23 +131,25 @@ func handle_harming(delta):
 	var viuuu = sqrt((velocity.x*velocity.x)+(velocity.y*velocity.y))
 	if anima.animation in ["whiteairattack1", "whiteattack1", "redairattack1", "redattack1"]:
 		if anima.frame == 3:
-			harmBoxGround13.atk = viuuu+attack+randf_range(0, 100)
+			harmBoxGround13.atk = viuuu+attack+randf_range(0, 100)+randf_range(0, 100)*form
 			harmBoxGround13.monitoring = true
+		else: harmBoxGround13.monitoring = false
 	if anima.animation in ["whiteairattack3", "whiteattack3", "redairattack3", "redattack3"]:
 		if anima.frame == 0:
-			harmBoxGround13.atk = viuuu+attack+randf_range(0, 100)
+			harmBoxGround13.atk = viuuu+attack+randf_range(0, 100)+randf_range(0, 100)*form
 			harmBoxGround13.monitoring = true
+		else: harmBoxGround13.monitoring = false
 	if anima.animation not in ["whiteairattack3", "whiteattack3", "redairattack3", "redattack3", "whiteairattack1", "whiteattack1", "redairattack1", "redattack1"]:
 		harmBoxGround13.monitoring = false
 	if anima.animation in ["whiteattack2", "redattack2"]:
 		if anima.frame == 0:
-			harmBoxGround2.atk = viuuu+attack+randf_range(0, 200)
+			harmBoxGround2.atk = viuuu+attack+randf_range(0, 200)+randf_range(0, 200)*form
 			harmBoxGround2.monitoring = true
 		else:
 			harmBoxGround2.monitoring = false
 	if anima.animation in ["whiteairattack2", "redairattack2"]:
 		if anima.frame == 0:
-			harmBoxAir2.atk = viuuu+attack+randf_range(0, 200)
+			harmBoxAir2.atk = viuuu+attack+randf_range(0, 200)+randf_range(0, 200)*form
 			harmBoxAir2.monitoring = true
 		else:
 			harmBoxAir2.monitoring = false
@@ -274,6 +294,18 @@ func handle_movement(delta):
 			anima.play("redfall")
 
 func _on_anima_animation_finished():
+	harmBoxGround13.monitoring = false
+	harmBoxGround2.monitoring = false
+	harmBoxAir2.monitoring = false
+	if anima.animation == "redattack1":
+		$blood.visible = true
+		$blood.play("splash13")
+	if anima.animation == "redattack2":
+		$blood.visible = true
+		$blood.play("splash2")
+	if anima.animation == "redattack3":
+		$blood.visible = true
+		$blood.play("splash13")
 	if anima.animation in ["whiteattack1", "whiteattack2", "whiteattack3", "redattack1", "redattack2", "redattack3"]:
 		if nextAttack:
 			anima.play(nextAttack)
@@ -339,3 +371,25 @@ func _on_ghost_timer_timeout():
 func knockback(attacker):
 	dash = true
 	velocity = attacker.global_position.direction_to(Vector2(global_position.x-9, global_position.y)).normalized()*900
+
+
+func _on_blood_animation_finished():
+	$blood.visible = false
+	pass # Replace with function body.
+
+
+func _on_erectile_dysfunction_timeout():
+	form = 0
+	Engine.time_scale = 1
+	pass # Replace with function body.
+
+
+func _on_bleed_timeout():
+	$HealthComp.health -= 10
+	if form == 1:
+		$bleed.start()
+
+
+func _on_guardian_angel_timeout():
+		$HitBoxComp.active = true
+		$bleed.start()

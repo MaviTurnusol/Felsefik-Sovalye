@@ -1,0 +1,295 @@
+[gd_scene load_steps=12 format=3 uid="uid://dop4yrlbkeed5"]
+
+[ext_resource type="Script" path="res://koylu_aura.gd" id="1_2bdq7"]
+[ext_resource type="PackedScene" uid="uid://df56ggibg66c4" path="res://Chars/components/harm_box_comp.tscn" id="1_wbgim"]
+[ext_resource type="Texture2D" uid="uid://2x0um861bkrc" path="res://Chars/koyludefault.png" id="2_jxfon"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_l80sm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ku7mk"]
+size = Vector2(6, 26)
+
+[sub_resource type="Animation" id="Animation_7me4i"]
+resource_name = "spin"
+length = 4.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("marker:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2, 4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 3.14159, 6.28319]
+}
+
+[sub_resource type="Animation" id="Animation_o32jx"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("marker:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dup3v"]
+_data = {
+"RESET": SubResource("Animation_o32jx"),
+"spin": SubResource("Animation_7me4i")
+}
+
+[sub_resource type="Animation" id="Animation_nhin5"]
+resource_name = "ente"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("marker/HarmBoxComp:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-69, -53)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("marker/HarmBoxComp2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-69, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("marker/HarmBoxComp3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(-69, 58.5)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("marker/HarmBoxComp4:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(66, -53)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("marker/HarmBoxComp5:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(66, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("marker/HarmBoxComp6:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(66, 58.5)]
+}
+
+[sub_resource type="Animation" id="Animation_8afwc"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("marker/HarmBoxComp:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("marker/HarmBoxComp2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("marker/HarmBoxComp3:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("marker/HarmBoxComp4:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("marker/HarmBoxComp5:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("marker/HarmBoxComp6:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wbjbt"]
+_data = {
+"RESET": SubResource("Animation_8afwc"),
+"ente": SubResource("Animation_nhin5")
+}
+
+[node name="koyluAura" type="CharacterBody2D"]
+script = ExtResource("1_2bdq7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_l80sm")
+disabled = true
+
+[node name="marker" type="Marker2D" parent="."]
+scale = Vector2(2, 2)
+
+[node name="HarmBoxComp" parent="marker" node_paths=PackedStringArray("father") instance=ExtResource("1_wbgim")]
+alwaysActive = true
+father = NodePath("../..")
+
+[node name="Sprite2D" type="Sprite2D" parent="marker/HarmBoxComp"]
+texture = ExtResource("2_jxfon")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="marker/HarmBoxComp"]
+position = Vector2(1, 2)
+shape = SubResource("RectangleShape2D_ku7mk")
+
+[node name="HarmBoxComp2" parent="marker" node_paths=PackedStringArray("father") instance=ExtResource("1_wbgim")]
+alwaysActive = true
+father = NodePath("../..")
+
+[node name="Sprite2D" type="Sprite2D" parent="marker/HarmBoxComp2"]
+texture = ExtResource("2_jxfon")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="marker/HarmBoxComp2"]
+position = Vector2(1, 2)
+shape = SubResource("RectangleShape2D_ku7mk")
+
+[node name="HarmBoxComp3" parent="marker" node_paths=PackedStringArray("father") instance=ExtResource("1_wbgim")]
+alwaysActive = true
+father = NodePath("../..")
+
+[node name="Sprite2D" type="Sprite2D" parent="marker/HarmBoxComp3"]
+texture = ExtResource("2_jxfon")
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="marker/HarmBoxComp3"]
+position = Vector2(1, 2)
+shape = SubResource("RectangleShape2D_ku7mk")
+
+[node name="HarmBoxComp4" parent="marker" node_paths=PackedStringArray("father") instance=ExtResource("1_wbgim")]
+alwaysActive = true
+father = NodePath("../..")
+
+[node name="Sprite2D" type="Sprite2D" parent="marker/HarmBoxComp4"]
+texture = ExtResource("2_jxfon")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="marker/HarmBoxComp4"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_ku7mk")
+
+[node name="HarmBoxComp5" parent="marker" node_paths=PackedStringArray("father") instance=ExtResource("1_wbgim")]
+alwaysActive = true
+father = NodePath("../..")
+
+[node name="Sprite2D" type="Sprite2D" parent="marker/HarmBoxComp5"]
+texture = ExtResource("2_jxfon")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="marker/HarmBoxComp5"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_ku7mk")
+
+[node name="HarmBoxComp6" parent="marker" node_paths=PackedStringArray("father") instance=ExtResource("1_wbgim")]
+alwaysActive = true
+father = NodePath("../..")
+
+[node name="Sprite2D" type="Sprite2D" parent="marker/HarmBoxComp6"]
+texture = ExtResource("2_jxfon")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="marker/HarmBoxComp6"]
+position = Vector2(0, 2)
+shape = SubResource("RectangleShape2D_ku7mk")
+
+[node name="animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_dup3v")
+}
+autoplay = "spin"
+
+[node name="enterexit" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_wbjbt")
+}
+autoplay = "ente"

@@ -275,10 +275,10 @@ size = Vector2(139, 89)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ql2dm"]
 size = Vector2(20, 31.3333)
 
-[node name="Darktar" type="CharacterBody2D"]
+[node name="Darktar" type="CharacterBody2D" groups=["monster"]]
 material = SubResource("ShaderMaterial_eiaxo")
 scale = Vector2(1.5, 1.5)
-collision_layer = 2
+collision_layer = 0
 collision_mask = 6
 script = ExtResource("1_k28q4")
 

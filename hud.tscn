@@ -1,6 +1,48 @@
-[gd_scene load_steps=2 format=3 uid="uid://brc66jvx41a04"]
+[gd_scene load_steps=11 format=3 uid="uid://brc66jvx41a04"]
 
 [ext_resource type="Script" path="res://hud.gd" id="1_5ntkf"]
+[ext_resource type="Texture2D" uid="uid://cmda8huxjb677" path="res://sprites/octagon.png" id="2_s2sq1"]
+[ext_resource type="FontFile" uid="uid://bvqnphjgi57n7" path="res://Chars/components/VCR_OSD_MONO_1.001.ttf" id="3_6lv6n"]
+[ext_resource type="Texture2D" uid="uid://b6khokrau3pb0" path="res://sprites/soundon.png" id="4_8hymp"]
+[ext_resource type="Texture2D" uid="uid://cqlh8aaojni7u" path="res://sprites/soundoff.png" id="5_k3ljw"]
+[ext_resource type="Texture2D" uid="uid://ct42l8fprbsdr" path="res://sprites/pause.png" id="6_ijy52"]
+[ext_resource type="Texture2D" uid="uid://dgasinupdja2j" path="res://sprites/exit.png" id="7_m1rob"]
+
+[sub_resource type="Animation" id="Animation_qsor2"]
+resource_name = "fadein"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/HPBar/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_khtta"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/HPBar/ColorRect:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b6081"]
+_data = {
+"RESET": SubResource("Animation_khtta"),
+"fadein": SubResource("Animation_qsor2")
+}
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -19,10 +61,79 @@ anchor_right = 1.0
 anchor_bottom = 0.036
 offset_bottom = -4.96
 
-[node name="ColorRect" type="ColorRect" parent="CanvasLayer/HPBar"]
+[node name="sane" type="ColorRect" parent="CanvasLayer/HPBar"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="nuts" type="ColorRect" parent="CanvasLayer/HPBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -599.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.607843, 0, 0, 1)
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/HPBar"]
+visible = false
+top_level = true
+layout_mode = 0
+offset_right = 640.0
+offset_bottom = 360.0
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_b6081")
+}
+autoplay = "fadein"
+
+[node name="Pause" type="TextureRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(2, 2)
+texture = ExtResource("2_s2sq1")
+
+[node name="Label" type="Label" parent="Pause"]
+layout_mode = 0
+offset_top = 25.0
+offset_right = 640.0
+offset_bottom = 62.0
+scale = Vector2(0.5, 0.5)
+theme_override_fonts/font = ExtResource("3_6lv6n")
+theme_override_font_sizes/font_size = 41
+text = "GAME PAUSED"
+horizontal_alignment = 1
+
+[node name="sound" type="TextureButton" parent="Pause"]
+layout_mode = 0
+offset_left = 81.5
+offset_top = 89.5
+offset_right = 121.5
+offset_bottom = 129.5
+toggle_mode = true
+texture_normal = ExtResource("4_8hymp")
+texture_pressed = ExtResource("5_k3ljw")
+
+[node name="pause" type="TextureButton" parent="Pause"]
+layout_mode = 0
+offset_left = 139.5
+offset_top = 90.5
+offset_right = 179.5
+offset_bottom = 130.5
+texture_normal = ExtResource("6_ijy52")
+
+[node name="exit" type="TextureButton" parent="Pause"]
+layout_mode = 0
+offset_left = 203.0
+offset_top = 90.5
+offset_right = 235.0
+offset_bottom = 122.5
+texture_normal = ExtResource("7_m1rob")

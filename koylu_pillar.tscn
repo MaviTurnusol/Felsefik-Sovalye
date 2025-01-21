@@ -1,0 +1,229 @@
+[gd_scene load_steps=22 format=3 uid="uid://dyhrdp3fgdnt4"]
+
+[ext_resource type="Texture2D" uid="uid://vhbhvtue5mwk" path="res://Chars/koylupillarSheet.png" id="1_hthka"]
+[ext_resource type="Script" path="res://koylu_pillar.gd" id="1_rvutg"]
+[ext_resource type="PackedScene" uid="uid://df56ggibg66c4" path="res://Chars/components/harm_box_comp.tscn" id="2_fg6rn"]
+[ext_resource type="Texture2D" uid="uid://dpamr5hao8w8d" path="res://Chars/koyludanger.png" id="3_358n0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_r2dkh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dx6rh"]
+atlas = ExtResource("1_hthka")
+region = Rect2(0, 0, 64, 272)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eflmn"]
+atlas = ExtResource("1_hthka")
+region = Rect2(64, 0, 64, 272)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dw3qa"]
+atlas = ExtResource("1_hthka")
+region = Rect2(128, 0, 64, 272)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31g85"]
+atlas = ExtResource("1_hthka")
+region = Rect2(192, 0, 64, 272)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttu3u"]
+atlas = ExtResource("1_hthka")
+region = Rect2(256, 0, 64, 272)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p22wy"]
+atlas = ExtResource("1_hthka")
+region = Rect2(320, 0, 64, 272)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1eiuh"]
+atlas = ExtResource("1_hthka")
+region = Rect2(384, 0, 64, 272)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6lhc3"]
+atlas = ExtResource("1_hthka")
+region = Rect2(448, 0, 64, 272)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t6i0i"]
+atlas = ExtResource("1_hthka")
+region = Rect2(512, 0, 64, 272)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjgy0"]
+atlas = ExtResource("1_hthka")
+region = Rect2(576, 0, 64, 272)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oongw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dx6rh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eflmn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dw3qa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_31g85")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ttu3u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p22wy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1eiuh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6lhc3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t6i0i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kjgy0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_o5i8e"]
+size = Vector2(4.25774, 245.678)
+
+[sub_resource type="Animation" id="Animation_eh2ro"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("unlem:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("unlem:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -92)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("marker:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 512)]
+}
+
+[sub_resource type="Animation" id="Animation_vrtoe"]
+resource_name = "arise"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("unlem:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.8, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("unlem:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.8, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -92), Vector2(0, -48), Vector2(0, -48), Vector2(0, -28)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("marker:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 1.5, 1.8),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 512), Vector2(0, 512), Vector2(0, 200)]
+}
+
+[sub_resource type="Animation" id="Animation_kugha"]
+resource_name = "esira"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("marker:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 200), Vector2(0, 512)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_b45b8"]
+_data = {
+"RESET": SubResource("Animation_eh2ro"),
+"arise": SubResource("Animation_vrtoe"),
+"esira": SubResource("Animation_kugha")
+}
+
+[node name="koyluPillar" type="CharacterBody2D"]
+script = ExtResource("1_rvutg")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_r2dkh")
+disabled = true
+
+[node name="marker" type="Marker2D" parent="."]
+position = Vector2(0, 512)
+scale = Vector2(2, 2)
+
+[node name="sprite" type="AnimatedSprite2D" parent="marker"]
+position = Vector2(0, -136)
+sprite_frames = SubResource("SpriteFrames_oongw")
+autoplay = "default"
+frame_progress = 0.524904
+
+[node name="HarmBoxComp" parent="marker" node_paths=PackedStringArray("father") instance=ExtResource("2_fg6rn")]
+alwaysActive = true
+atk = 25
+father = NodePath("../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="marker/HarmBoxComp"]
+position = Vector2(2, -122.839)
+shape = SubResource("RectangleShape2D_o5i8e")
+
+[node name="unlem" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(0, -92)
+scale = Vector2(2, 2)
+texture = ExtResource("3_358n0")
+
+[node name="animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_b45b8")
+}
+autoplay = "arise"

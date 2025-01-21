@@ -1,0 +1,246 @@
+[gd_scene load_steps=23 format=3 uid="uid://ve1j8jix2hys"]
+
+[ext_resource type="PackedScene" uid="uid://biyeoy2vdy2vl" path="res://Chars/components/hit_box_comp.tscn" id="1_0dtvm"]
+[ext_resource type="Script" path="res://koylu.gd" id="1_8d34t"]
+[ext_resource type="Shader" uid="uid://bf8m3jpehiedj" path="res://Chars/darktar/hitflash.tres" id="1_ajhqv"]
+[ext_resource type="PackedScene" uid="uid://djs2661afaea0" path="res://Chars/components/health_comp.tscn" id="2_lreoe"]
+[ext_resource type="Texture2D" uid="uid://2x0um861bkrc" path="res://Chars/koyludefault.png" id="3_uy53m"]
+[ext_resource type="Texture2D" uid="uid://cgkplygn2foxa" path="res://Chars/koylunazi.png" id="4_b4pq4"]
+[ext_resource type="Texture2D" uid="uid://xneprpuo711" path="res://Chars/koylutpose.png" id="5_03vfs"]
+[ext_resource type="Texture2D" uid="uid://c6nielu4k62l2" path="res://Chars/koylublade.png" id="7_mrqgv"]
+[ext_resource type="PackedScene" uid="uid://df56ggibg66c4" path="res://Chars/components/harm_box_comp.tscn" id="8_6osvh"]
+[ext_resource type="Script" path="res://BossHUD.gd" id="10_0tem1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hp46w"]
+resource_local_to_scene = true
+shader = ExtResource("1_ajhqv")
+shader_parameter/enabled = false
+shader_parameter/ColorParameter = Color(1, 0, 0, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qnwrr"]
+atlas = ExtResource("3_uy53m")
+region = Rect2(0, 0, 32, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8r8k3"]
+atlas = ExtResource("4_b4pq4")
+region = Rect2(0, 0, 32, 33)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2xirx"]
+atlas = ExtResource("5_03vfs")
+region = Rect2(0, 0, 32, 33)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m371e"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qnwrr")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8r8k3")
+}],
+"loop": true,
+"name": &"nazi",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2xirx")
+}],
+"loop": true,
+"name": &"tpose",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fo8fe"]
+size = Vector2(24, 59)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wtev3"]
+size = Vector2(935.438, 49.2756)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m8oo5"]
+size = Vector2(14, 52)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eim44"]
+size = Vector2(6, 26)
+
+[sub_resource type="Animation" id="Animation_fi77y"]
+resource_name = "bladeSwing"
+length = 4.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("donek/bladeMarker:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 3.2, 3.8, 4.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.359538, 0.925025, 1.0472, 1.13446, -2.79253]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("donek/bladeMarker/blade:modulate")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.3, 4, 4.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("donek/bladeMarker/bladeHarmer:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.3, 4, 4.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, false]
+}
+
+[sub_resource type="Animation" id="Animation_xmdkd"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("donek/bladeMarker:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.359538]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("donek/bladeMarker/blade:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("donek/bladeMarker/bladeHarmer:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ogf1o"]
+_data = {
+"RESET": SubResource("Animation_xmdkd"),
+"bladeSwing": SubResource("Animation_fi77y")
+}
+
+[node name="Koylu" type="CharacterBody2D"]
+material = SubResource("ShaderMaterial_hp46w")
+collision_layer = 0
+collision_mask = 6
+script = ExtResource("1_8d34t")
+
+[node name="HealthComp" parent="." instance=ExtResource("2_lreoe")]
+MAX_HEALTH = 100000.0
+
+[node name="donek" type="Marker2D" parent="."]
+use_parent_material = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="donek"]
+use_parent_material = true
+position = Vector2(0, -33)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_m371e")
+autoplay = "default"
+
+[node name="HitBoxComp" parent="donek" node_paths=PackedStringArray("health_comp") instance=ExtResource("1_0dtvm")]
+position = Vector2(0, -16)
+collision_layer = 2
+collision_mask = 2
+health_comp = NodePath("../../HealthComp")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="donek/HitBoxComp"]
+position = Vector2(-2, -13.5)
+shape = SubResource("RectangleShape2D_fo8fe")
+
+[node name="bladeMarker" type="Marker2D" parent="donek"]
+z_index = 10
+position = Vector2(0, -39)
+rotation = 0.359538
+scale = Vector2(2, 2)
+
+[node name="blade" type="Sprite2D" parent="donek/bladeMarker"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(2, -162)
+texture = ExtResource("7_mrqgv")
+
+[node name="bladeHarmer" parent="donek/bladeMarker" node_paths=PackedStringArray("father") instance=ExtResource("8_6osvh")]
+position = Vector2(-38.8516, -3.39907)
+rotation = 1.65806
+monitoring = false
+alwaysActive = true
+atk = 50
+father = NodePath("../../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="donek/bladeMarker/bladeHarmer"]
+position = Vector2(-529.685, 3.6959)
+rotation = -0.0872663
+shape = SubResource("RectangleShape2D_wtev3")
+
+[node name="harmer" parent="donek" node_paths=PackedStringArray("father") instance=ExtResource("8_6osvh")]
+alwaysActive = true
+atk = 50
+father = NodePath("../..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="donek/harmer"]
+position = Vector2(-1, -26)
+shape = SubResource("RectangleShape2D_m8oo5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -13)
+shape = SubResource("RectangleShape2D_eim44")
+
+[node name="swordAnimator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ogf1o")
+}
+
+[node name="impaleTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="BossHUD" type="CanvasLayer" parent="."]
+script = ExtResource("10_0tem1")
+
+[node name="HPBar" type="ColorRect" parent="BossHUD"]
+offset_top = 352.0
+offset_right = 640.0
+offset_bottom = 360.0
+size_flags_horizontal = 4
+size_flags_vertical = 8
+color = Color(0.305882, 0.388235, 0.121569, 1)
+
+[node name="stateChangeTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="impaleTimer" to="." method="_on_impale_timer_timeout"]
+[connection signal="timeout" from="stateChangeTimer" to="." method="_on_state_change_timer_timeout"]

@@ -84,7 +84,7 @@ height = 32.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_3ivs8"]
 radius = 46.0
 
-[node name="Armoz" type="CharacterBody2D" groups=["armoz"]]
+[node name="Armoz" type="CharacterBody2D" groups=["armoz", "monster"]]
 material = SubResource("ShaderMaterial_ulp1w")
 collision_layer = 24
 collision_mask = 8
@@ -122,7 +122,7 @@ health_comp = NodePath("../HealthComp")
 shape = SubResource("CapsuleShape2D_y88ku")
 
 [node name="HealthComp" parent="." instance=ExtResource("5_yt67d")]
-MAX_HEALTH = 1.0
+MAX_HEALTH = 400.0
 
 [node name="Vision" type="Area2D" parent="."]
 collision_layer = 0
