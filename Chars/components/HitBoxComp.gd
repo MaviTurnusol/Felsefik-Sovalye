@@ -9,7 +9,7 @@ func damage(attack, attacker):
 		return
 	set_deferred("monitorable", false)
 	if father.is_in_group("monster"):
-		UnlimitedRulebook.frameFreeze(0.05, 0.5)
+		UnlimitedRulebook.frameFreeze(0.05, 0.25)
 	if father.has_method("knockback"):
 		father.knockback(attacker)
 	if health_comp:

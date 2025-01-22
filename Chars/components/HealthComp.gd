@@ -18,14 +18,15 @@ func set_health(value):
 				father.death()
 	if UnlimitedRulebook.player:
 		if father == UnlimitedRulebook.player:
-			if father.form == 0:
-				if value <= berserkiumHealthValue/5:
-					father.form = 1
-					value = berserkiumHealthValue/5
-					healthChanged.emit(health, value)
-					health = value
-					berserkiumHealthValue = -10
-					UnlimitedRulebook.hud.berserkPoint = -10
+			if is_instance_valid(father):
+				if father.form == 0:
+					if value <= berserkiumHealthValue/5:
+						father.form = 1
+						value = berserkiumHealthValue/5
+						healthChanged.emit(health, value)
+						health = value
+						berserkiumHealthValue = -10
+						UnlimitedRulebook.hud.berserkPoint = -10
 	if value != health:
 		healthChanged.emit(health, value)
 		health = value

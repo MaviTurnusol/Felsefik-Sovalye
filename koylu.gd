@@ -2,21 +2,23 @@ extends CharacterBody2D
 
 
 var speed = 300.0
-
+var grimmCharges = 0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
-enum States { SWORDE, CHASE, BALL, IMPALE, AURA, DEAD, ENTER}  
+enum States { SWORDE, CHASE, BALL, IMPALE, AURA, DEAD, ENTER, GRIMM}  
 var state: States = States.BALL : set = enterState
 func _ready():
 	$donek/HitBoxComp.father = self
 	$HealthComp.father = self
 	await get_tree().create_timer(0.5).timeout
-	state = States.IMPALE
+	state = States.SWORDE
+	$randomImpaler.wait_time = randf_range(1, 8)
+	$randomImpaler.start()
 func enterState(value):
-	if value == state:
-		return
 	if state == States.BALL:
 		$donek/AnimatedSprite2D.rotation_degrees = 0
+	if state == States.GRIMM:
+		$donek/AnimatedSprite2D.play("default")
 	if value == States.IMPALE:
 		impale()
 		$impaleTimer.start()
@@ -28,17 +30,32 @@ func enterState(value):
 				velocity.x = -100
 			else:
 				goToPlaces("left")
-				
 				velocity.x = 100
 		add_child(aura)
+		$stateChangeTimer.wait_time = 4
+		$stateChangeTimer.start()
 	if value == States.BALL:
 		#var twink = get_tree().create_tween()
 		#twink.tween_property(self, "velocity", global_position.direction_to(UnlimitedRulebook.player.global_position).normalized() * 600, 2)
-		$stateChangeTimer.wait_time = randf_range(10, 20)
+		$stateChangeTimer.wait_time = randf_range(5, 10)
 		$stateChangeTimer.start()
 	if value == States.CHASE:
-		$stateChangeTimer.wait_time = randf_range(10, 20)
+		$stateChangeTimer.wait_time = randf_range(5, 10)
 		$stateChangeTimer.start()
+	if value == States.SWORDE:
+		swording()
+		$stateChangeTimer.wait_time = 2
+		$stateChangeTimer.start()
+	if value == States.GRIMM:
+		grimmCharges = 4
+		$grimmTimer.start()
+		if UnlimitedRulebook.player:
+			if UnlimitedRulebook.player.global_position.x < global_position.x:
+				goToPlaces("botright")
+			else:
+				goToPlaces("botleft")
+		await get_tree().create_timer(0.5).timeout
+		$donek/AnimatedSprite2D.play("nazi")
 	state = value
 func _physics_process(delta):
 	turn()
@@ -61,13 +78,11 @@ func _physics_process(delta):
 			velocity.y += 1.4 * delta * gravity
 		pass
 	elif state == States.SWORDE:
-		swording()
 		move_and_slide()
 	elif state == States.AURA:
 		move_and_slide()
-		await get_tree().create_timer(4).timeout
-		velocity.x = 0
-		randomState()
+	elif state == States.GRIMM:
+		move_and_slide()
 func impale():
 	var randNum = randi_range(-100, 100)
 	if UnlimitedRulebook.player:
@@ -84,12 +99,23 @@ func goToPlaces(place: String):
 		"right":
 			var twink = get_tree().create_tween()
 			twink.tween_property(self, "global_position", Vector2(500, 180), 0.5)
+			velocity.y = 0
 		"middle":
 			var twink = get_tree().create_tween()
 			twink.tween_property(self, "global_position", Vector2(320, 180), 0.5)
+			velocity.y = 0
 		"left":
 			var twink = get_tree().create_tween()
 			twink.tween_property(self, "global_position", Vector2(100, 180), 0.5)
+			velocity.y = 0
+		"botright":
+			var twink = get_tree().create_tween()
+			twink.tween_property(self, "global_position", Vector2(150, 300), 0.5)
+			velocity.y = 0
+		"botleft":
+			var twink = get_tree().create_tween()
+			twink.tween_property(self, "global_position", Vector2(550, 300), 0.5)
+			velocity.y = 0
 
 func swording():
 	if UnlimitedRulebook.player:
@@ -99,8 +125,6 @@ func swording():
 			goToPlaces("left")
 	await get_tree().create_timer(0.5).timeout
 	$swordAnimator.play("bladeSwing")
-	await get_tree().create_timer(4.2).timeout
-	#randomState()
 
 func turn():
 	if UnlimitedRulebook.player:
@@ -127,7 +151,7 @@ func launch():
 
 
 func _on_impale_timer_timeout():
-	if randi()%3 == 0:
+	if randi()%3 != 0:
 		randomState()
 	if state == States.IMPALE:
 		impale()
@@ -135,7 +159,7 @@ func _on_impale_timer_timeout():
 	pass # Replace with function body.
 
 func randomState():
-	var rando = randi_range(0, 4)
+	var rando = randi_range(0, 5)
 	match rando:
 		0:
 			state = States.AURA
@@ -144,11 +168,45 @@ func randomState():
 		2:
 			state = States.CHASE
 		3:
-			state = States.AURA
+			state = States.IMPALE
 		4:
 			state = States.SWORDE
+		5:
+			state = States.GRIMM
+	print(state)
 
 
 func _on_state_change_timer_timeout():
 	randomState()
 	pass # Replace with function body.
+
+
+func _on_random_impaler_timeout():
+	$randomImpaler.wait_time = randf_range(1, 8)
+	var pillar = load("res://koylu_pillar.tscn").instantiate()
+	pillar.global_position = Vector2(UnlimitedRulebook.player.global_position.x, 335)
+	get_tree().root.add_child(pillar)
+	$randomImpaler.start()
+	pass # Replace with function body.
+
+
+func _on_grimm_timer_timeout():
+	var ucak = load("res://koylu_ucak.tscn").instantiate()
+	if UnlimitedRulebook.player:
+		if UnlimitedRulebook.player.global_position.x < global_position.x:
+			ucak.global_position.x = global_position.x - 50
+			ucak.direction = -1
+		else:
+			ucak.global_position.x = global_position.x - 50
+			ucak.direction = 1
+	if grimmCharges == 1 || grimmCharges == 3:
+		ucak.global_position.y = global_position.y-10
+	elif grimmCharges == 2 || grimmCharges == 4:
+		ucak.global_position.y = global_position.y-60
+	get_tree().root.add_child(ucak)
+	grimmCharges -= 1
+	if grimmCharges > 0:
+		$grimmTimer.start()
+	else:
+		await get_tree().create_timer(1)
+		randomState()

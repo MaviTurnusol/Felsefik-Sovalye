@@ -1,7 +1,9 @@
-[gd_scene load_steps=18 format=3 uid="uid://bscyn3e71oqyl"]
+[gd_scene load_steps=20 format=3 uid="uid://bscyn3e71oqyl"]
 
+[ext_resource type="Script" path="res://menu.gd" id="1_g0j35"]
 [ext_resource type="Texture2D" uid="uid://bb8xdymq6o4h3" path="res://sprites/menu bg.png" id="1_i8ur0"]
 [ext_resource type="FontFile" uid="uid://bvqnphjgi57n7" path="res://Chars/components/VCR_OSD_MONO_1.001.ttf" id="2_7hrnn"]
+[ext_resource type="Texture2D" uid="uid://dp85s3w0mn5s4" path="res://Chars/components/783.png" id="4_fq4gu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6nvsp"]
 
@@ -35,9 +37,11 @@
 
 [node name="Menu" type="Control"]
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 size_flags_vertical = 0
+script = ExtResource("1_g0j35")
 
 [node name="bg" type="TextureRect" parent="."]
 modulate = Color(0.290196, 0.172549, 0.180392, 1)
@@ -128,3 +132,18 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_gdrta")
 text = "köylü
 "
 flat = true
+
+[node name="TextureRect" type="TextureRect" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_fq4gu")
+expand_mode = 1
+
+[connection signal="pressed" from="VBoxContainer/play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="VBoxContainer/exit" to="." method="_on_exit_pressed"]
+[connection signal="pressed" from="koylu" to="." method="_on_koylu_pressed"]

@@ -117,6 +117,8 @@ func handle_dashing():
 		$ghostTimer.stop()
 
 func handle_stuff(delta):
+	if $HealthComp.health <= 0:
+		get_tree().change_scene_to_file("res://menu.tscn")
 	$blood.flip_h = anima.flip_h
 	if anima.flip_h == false:
 		$attackHitboxes.scale.x = 1
