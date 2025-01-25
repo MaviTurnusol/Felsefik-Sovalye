@@ -209,7 +209,7 @@ frame_progress = 0.524904
 
 [node name="HarmBoxComp" parent="marker" node_paths=PackedStringArray("father") instance=ExtResource("2_fg6rn")]
 alwaysActive = true
-atk = 25
+atk = 100
 father = NodePath("../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="marker/HarmBoxComp"]

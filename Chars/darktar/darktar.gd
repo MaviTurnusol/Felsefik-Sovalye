@@ -16,7 +16,7 @@ enum States { IDLE, RUN, ATTACK, FLY, SPIN, DEAD, ENTER}
 var state: States = States.ENTER
 
 func _ready():
-	$HarmBoxComp.atk = 50
+	$HarmBoxComp.atk = 75
 	$Body/HitBoxComp.father = self
 	$Body/HealthComp.father = self
 	change_direction()

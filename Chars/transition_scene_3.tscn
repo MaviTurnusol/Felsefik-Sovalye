@@ -1,0 +1,33 @@
+[gd_scene load_steps=5 format=3 uid="uid://vevla6xnbcbr"]
+
+[ext_resource type="Script" path="res://Chars/transition_scene_3.gd" id="1_fjaoc"]
+[ext_resource type="Texture2D" uid="uid://4uuh8iaaacx2" path="res://Chars/tarlamisiktinoc.png" id="1_hb30x"]
+[ext_resource type="FontFile" uid="uid://bvqnphjgi57n7" path="res://Chars/components/VCR_OSD_MONO_1.001.ttf" id="2_u3wp4"]
+[ext_resource type="AudioStream" uid="uid://bk1ycgorkaqga" path="res://Chars/ElevenLabs_2025-01-25T03_32_32_Bill_pre_s50_sb75_se0_b_m2.mp3" id="4_d88pn"]
+
+[node name="transitionScene3" type="Node2D"]
+script = ExtResource("1_fjaoc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(293, 185)
+scale = Vector2(0.625, 0.625)
+texture = ExtResource("1_hb30x")
+
+[node name="Label" type="RichTextLabel" parent="."]
+offset_left = 12.0
+offset_top = 228.0
+offset_right = 531.0
+offset_bottom = 447.0
+scale = Vector2(0.8, 0.8)
+theme_override_colors/default_color = Color(0.890196, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_u3wp4")
+theme_override_font_sizes/normal_font_size = 82
+bbcode_enabled = true
+text = "[shake rate=20.0 level=5 connected=1]TARLAMI SIKTIN OC[/shake]"
+fit_content = true
+tab_size = 5
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_d88pn")
+volume_db = 10.0
+autoplay = true

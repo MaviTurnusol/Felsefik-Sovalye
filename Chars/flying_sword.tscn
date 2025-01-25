@@ -1,0 +1,35 @@
+[gd_scene load_steps=6 format=3 uid="uid://bbsegqnnpojpw"]
+
+[ext_resource type="Script" path="res://Chars/flying_sword.gd" id="1_ao5ej"]
+[ext_resource type="Texture2D" uid="uid://d1xxikamqw0iq" path="res://Chars/dagger.png" id="1_i1hha"]
+[ext_resource type="PackedScene" uid="uid://df56ggibg66c4" path="res://Chars/components/harm_box_comp.tscn" id="2_vew3j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gamt3"]
+size = Vector2(96, 4)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qrc23"]
+size = Vector2(138.5, 6)
+
+[node name="flyingSword" type="CharacterBody2D"]
+z_index = 5
+script = ExtResource("1_ao5ej")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(97, 0)
+rotation = 1.5708
+scale = Vector2(2, 2)
+texture = ExtResource("1_i1hha")
+flip_v = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_gamt3")
+disabled = true
+
+[node name="HarmBoxComp" parent="." node_paths=PackedStringArray("father") instance=ExtResource("2_vew3j")]
+alwaysActive = true
+atk = 50
+father = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HarmBoxComp"]
+position = Vector2(76.75, 0)
+shape = SubResource("RectangleShape2D_qrc23")

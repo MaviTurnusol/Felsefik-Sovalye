@@ -4,7 +4,7 @@ extends CanvasLayer
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	healthComp.healthChanged.connect(_on_health_changed)
-	$HPBar.size.x = healthComp.MAX_HEALTH*4/640
+	$HPBar.size.x = healthComp.MAX_HEALTH*5/640
 	pass # Replace with function body.
 
 
@@ -15,7 +15,7 @@ func _process(delta):
 	pass
 
 func _on_health_changed(oldVal, newVal):
-	$HPBar.size.x = healthComp.health*4/640
+	$HPBar.size.x = healthComp.health*5/640
 	if newVal < oldVal:
 		var postwink = get_tree().create_tween().set_trans(Tween.TRANS_SINE)
 		var rottwink = get_tree().create_tween().set_trans(Tween.TRANS_SINE)

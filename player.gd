@@ -39,21 +39,29 @@ func GRIFFIIIIITTH(value):
 	if value == 0:
 		$HealthComp.berserkiumHealthValue = $HealthComp.health
 		UnlimitedRulebook.hud.berserkPoint = $HealthComp.berserkiumHealthValue/5
+		UnlimitedRulebook.hud.reverseGlitch()
+		MusicBook.deglitchSound()
 	if value == 1:
 		$erectileDysfunction.wait_time = 20 + UnlimitedRulebook.wave/5
 		$erectileDysfunction.start()
 		$HitBoxComp.active = false
 		$guardianAngel.start()
 		Engine.time_scale = 1.1
+		UnlimitedRulebook.hud.glitch()
+		MusicBook.glitchSound()
 	form = value
 
 func _ready():
+	MusicBook.deglitchSound()
 	UnlimitedRulebook.player = self
 	harmBoxAir2.atk = 4
 	harmBoxGround13.atk = 3
 	harmBoxGround2.atk = 2
 	$HitBoxComp.father = self
 	$HealthComp.father = self
+	$HitBoxComp.monitorable = false
+	await get_tree().create_timer(1).timeout
+	$HitBoxComp.monitorable = true
 	
 func _physics_process(delta):
 	# Add the gravity.
@@ -88,6 +96,14 @@ func create_ghost():
 	animSprite.queue_free()
 
 func handle_dashing():
+	if isDashing:
+		$HitBoxComp.monitorable = false
+		if $ghostTimer.is_stopped():
+			$ghostTimer.start()
+			create_ghost()
+	else:
+		$HitBoxComp.monitorable = true
+		$ghostTimer.stop()
 	if Input.is_action_just_pressed("dash"):
 		if dash:
 			isDashing = true
@@ -102,23 +118,30 @@ func handle_dashing():
 			dashCooldown.start()
 			isDashing = false
 			dash = false
+	if Input.is_action_just_pressed("mouser"):
+		if dash:
+			isDashing = true
+			var dashDirection = Vector2.ZERO
+			dashDirection = global_position.direction_to(get_global_mouse_position()).normalized()
+			velocity = dashDirection.normalized() * dashSpeed
+			#create_ghost()
+			await get_tree().create_timer(0.2).timeout
+			dashCooldown.start()
+			isDashing = false
+			dash = false
 	if is_on_floor():
 		if dashCooldown.is_stopped():
 			dash = true
 		else:
 			delayedDash = true
-	if isDashing:
-		$HitBoxComp.monitorable = false
-		if $ghostTimer.is_stopped():
-			$ghostTimer.start()
-			create_ghost()
-	else:
-		$HitBoxComp.monitorable = true
-		$ghostTimer.stop()
 
 func handle_stuff(delta):
+	
 	if $HealthComp.health <= 0:
-		get_tree().change_scene_to_file("res://menu.tscn")
+		#get_tree().change_scene_to_file("res://menu.tscn")
+		UnlimitedRulebook.wave = 0
+		MusicBook.deglitchSound()
+		get_tree().reload_current_scene()
 	$blood.flip_h = anima.flip_h
 	if anima.flip_h == false:
 		$attackHitboxes.scale.x = 1
@@ -132,7 +155,7 @@ func handle_stuff(delta):
 func handle_harming(delta):
 	var viuuu = sqrt((velocity.x*velocity.x)+(velocity.y*velocity.y))
 	if anima.animation in ["whiteairattack1", "whiteattack1", "redairattack1", "redattack1"]:
-		if anima.frame == 3:
+		if anima.frame == 3 || isDashing:
 			harmBoxGround13.atk = viuuu+attack+randf_range(0, 100)+randf_range(0, 100)*form
 			harmBoxGround13.monitoring = true
 		else: harmBoxGround13.monitoring = false
@@ -294,6 +317,8 @@ func handle_movement(delta):
 			anima.play("whitefall")
 		else:
 			anima.play("redfall")
+	
+	velocity.y = clamp(velocity.y, -1200, 1200)
 
 func _on_anima_animation_finished():
 	harmBoxGround13.monitoring = false
@@ -395,3 +420,11 @@ func _on_bleed_timeout():
 func _on_guardian_angel_timeout():
 		$HitBoxComp.active = true
 		$bleed.start()
+
+
+func _on_hit_box_comp_body_entered(body):
+	if body.is_in_group("sword"):
+		$HitBoxComp/CollisionShape2D.set_deferred("disabled", true)
+		await get_tree().create_timer(0.3).timeout
+		$HitBoxComp/CollisionShape2D.set_deferred("disabled", false)
+	pass # Replace with function body.

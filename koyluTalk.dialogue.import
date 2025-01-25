@@ -1,0 +1,15 @@
+[remap]
+
+importer="dialogue_manager_compiler_13"
+type="Resource"
+uid="uid://bgqg2vh1qq18a"
+path="res://.godot/imported/koyluTalk.dialogue-682a51abfea1a624115f2d2ba66c484f.tres"
+
+[deps]
+
+source_file="res://koyluTalk.dialogue"
+dest_files=["res://.godot/imported/koyluTalk.dialogue-682a51abfea1a624115f2d2ba66c484f.tres"]
+
+[params]
+
+defaults=true

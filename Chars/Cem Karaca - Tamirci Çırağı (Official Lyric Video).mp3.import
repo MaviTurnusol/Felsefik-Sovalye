@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cecpkoq0r613w"
+path="res://.godot/imported/Cem Karaca - Tamirci Çırağı (Official Lyric Video).mp3-30d5f0839324b41dd20f8192f58172e3.mp3str"
+
+[deps]
+
+source_file="res://Chars/Cem Karaca - Tamirci Çırağı (Official Lyric Video).mp3"
+dest_files=["res://.godot/imported/Cem Karaca - Tamirci Çırağı (Official Lyric Video).mp3-30d5f0839324b41dd20f8192f58172e3.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

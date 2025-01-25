@@ -1,0 +1,5 @@
+~ start
+[speed=0.2]\n\n EKMEK ON BES LIRA [wait=1] \n\n BUTUN FIRINLAR KAPALI [wait=1] \n\n TARLALAR DOLU
+[speed=0.2]\n\n\n\n HER SEYI KATLET
+do UnlimitedRulebook.changeScene.emit("res://arena_1.tscn")
+=> END

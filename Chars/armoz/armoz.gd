@@ -15,7 +15,7 @@ func set_target(value):
 func _ready():
 	$HitBoxComp.father = self
 	$HealthComp.father = self
-	$HarmBoxComp.atk = 25
+	$HarmBoxComp.atk = 50
 	state = States.ENTER
 	await get_tree().create_timer(0.6).timeout
 	state = States.ORBIT

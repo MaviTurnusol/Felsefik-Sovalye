@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ve1j8jix2hys"]
+[gd_scene load_steps=26 format=3 uid="uid://ve1j8jix2hys"]
 
 [ext_resource type="PackedScene" uid="uid://biyeoy2vdy2vl" path="res://Chars/components/hit_box_comp.tscn" id="1_0dtvm"]
 [ext_resource type="Script" path="res://koylu.gd" id="1_8d34t"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://c6nielu4k62l2" path="res://Chars/koylublade.png" id="7_mrqgv"]
 [ext_resource type="PackedScene" uid="uid://df56ggibg66c4" path="res://Chars/components/harm_box_comp.tscn" id="8_6osvh"]
 [ext_resource type="Script" path="res://BossHUD.gd" id="10_0tem1"]
+[ext_resource type="Texture2D" uid="uid://dhqftelramu2" path="res://Chars/truck.png" id="11_eyhd0"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hp46w"]
 resource_local_to_scene = true
@@ -59,11 +60,17 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fo8fe"]
 size = Vector2(24, 59)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ttn6"]
+size = Vector2(126, 34)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wtev3"]
 size = Vector2(935.438, 49.2756)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_m8oo5"]
 size = Vector2(14, 52)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_45i4x"]
+size = Vector2(79, 34)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eim44"]
 size = Vector2(6, 26)
@@ -160,7 +167,7 @@ collision_mask = 6
 script = ExtResource("1_8d34t")
 
 [node name="HealthComp" parent="." instance=ExtResource("2_lreoe")]
-MAX_HEALTH = 100000.0
+MAX_HEALTH = 75000.0
 
 [node name="donek" type="Marker2D" parent="."]
 use_parent_material = true
@@ -183,6 +190,11 @@ health_comp = NodePath("../../HealthComp")
 position = Vector2(-2, -13.5)
 shape = SubResource("RectangleShape2D_fo8fe")
 
+[node name="trucke" type="CollisionShape2D" parent="donek/HitBoxComp"]
+position = Vector2(-8, -1)
+shape = SubResource("RectangleShape2D_2ttn6")
+disabled = true
+
 [node name="bladeMarker" type="Marker2D" parent="donek"]
 z_index = 10
 position = Vector2(0, -39)
@@ -199,7 +211,7 @@ position = Vector2(-38.8516, -3.39907)
 rotation = 1.65806
 monitoring = false
 alwaysActive = true
-atk = 50
+atk = 100
 father = NodePath("../../..")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="donek/bladeMarker/bladeHarmer"]
@@ -215,6 +227,18 @@ father = NodePath("../..")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="donek/harmer"]
 position = Vector2(-1, -26)
 shape = SubResource("RectangleShape2D_m8oo5")
+
+[node name="trucke" type="CollisionShape2D" parent="donek/harmer"]
+position = Vector2(-6.5, -17)
+shape = SubResource("RectangleShape2D_45i4x")
+disabled = true
+
+[node name="Truck" type="Sprite2D" parent="donek"]
+visible = false
+use_parent_material = true
+position = Vector2(-8, -41)
+scale = Vector2(0.216981, 0.216981)
+texture = ExtResource("11_eyhd0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -13)

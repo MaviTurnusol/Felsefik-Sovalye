@@ -6,16 +6,19 @@ var grimmCharges = 0
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 enum States { SWORDE, CHASE, BALL, IMPALE, AURA, DEAD, ENTER, GRIMM}  
-var state: States = States.BALL : set = enterState
+var state: States = States.ENTER : set = enterState
 func _ready():
 	$donek/HitBoxComp.father = self
 	$HealthComp.father = self
-	await get_tree().create_timer(0.5).timeout
-	state = States.SWORDE
+	await get_tree().create_timer(1.5).timeout
+	state = States.CHASE
 	$randomImpaler.wait_time = randf_range(1, 8)
 	$randomImpaler.start()
 func enterState(value):
+	$stateChangeTimer.stop()
 	if state == States.BALL:
+		$donek/AnimatedSprite2D.rotation_degrees = 0
+		await get_tree().create_timer(0.5).timeout
 		$donek/AnimatedSprite2D.rotation_degrees = 0
 	if state == States.GRIMM:
 		$donek/AnimatedSprite2D.play("default")
@@ -34,12 +37,21 @@ func enterState(value):
 		add_child(aura)
 		$stateChangeTimer.wait_time = 4
 		$stateChangeTimer.start()
+	if state == States.CHASE:
+		$donek/Truck.visible = false
+		$donek/harmer/trucke.set_deferred("disabled", true)
+		$donek/HitBoxComp/trucke.set_deferred("disabled", true)
+		$donek/AnimatedSprite2D.position.y = -33
 	if value == States.BALL:
 		#var twink = get_tree().create_tween()
 		#twink.tween_property(self, "velocity", global_position.direction_to(UnlimitedRulebook.player.global_position).normalized() * 600, 2)
 		$stateChangeTimer.wait_time = randf_range(5, 10)
 		$stateChangeTimer.start()
 	if value == States.CHASE:
+		$donek/Truck.visible = true
+		$donek/harmer/trucke.set_deferred("disabled", false)
+		$donek/HitBoxComp/trucke.set_deferred("disabled", false)
+		$donek/AnimatedSprite2D.position.y = -55
 		$stateChangeTimer.wait_time = randf_range(5, 10)
 		$stateChangeTimer.start()
 	if value == States.SWORDE:
@@ -58,11 +70,17 @@ func enterState(value):
 		$donek/AnimatedSprite2D.play("nazi")
 	state = value
 func _physics_process(delta):
+	if $HealthComp.health <= 20:
+		get_tree().change_scene_to_file("res://Chars/transition_scene_3.tscn")
+	if state != States.BALL:
+		$donek/AnimatedSprite2D.rotation_degrees = 0
 	turn()
 	if state == States.CHASE:
-		velocity.x = lerp(velocity.x, sign(UnlimitedRulebook.player.global_position.x-global_position.x) * speed, 0.01)
+		velocity.x = lerp(velocity.x, sign(UnlimitedRulebook.player.global_position.x-global_position.x) * speed * 2, 0.01)
 		if not is_on_floor():
 			velocity.y += 1.4 * delta * gravity
+		if is_on_wall():
+			velocity.x = sign(get_slide_collision(0).get_normal().x) * speed * 3
 		move_and_slide()
 	elif state == States.BALL:
 		var collision = move_and_collide(velocity * delta)
@@ -76,13 +94,14 @@ func _physics_process(delta):
 		velocity.x = 0
 		if not is_on_floor():
 			velocity.y += 1.4 * delta * gravity
-		pass
 	elif state == States.SWORDE:
 		move_and_slide()
 	elif state == States.AURA:
 		move_and_slide()
 	elif state == States.GRIMM:
 		move_and_slide()
+		if not is_on_floor():
+			velocity.y += 1.4 * delta * gravity
 func impale():
 	var randNum = randi_range(-100, 100)
 	if UnlimitedRulebook.player:
@@ -177,6 +196,8 @@ func randomState():
 
 
 func _on_state_change_timer_timeout():
+	if state == States.BALL:
+		$donek/AnimatedSprite2D.rotation_degrees = 0
 	randomState()
 	pass # Replace with function body.
 

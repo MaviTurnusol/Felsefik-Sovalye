@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://ducse3lr8mcjg"]
+
+[ext_resource type="Script" path="res://Chars/finish_scene.gd" id="1_kjskf"]
+[ext_resource type="Texture2D" uid="uid://butuiwtf6tr68" path="res://Chars/endscene.png" id="1_n5ji5"]
+[ext_resource type="FontFile" uid="uid://bvqnphjgi57n7" path="res://Chars/components/VCR_OSD_MONO_1.001.ttf" id="2_nrh0q"]
+[ext_resource type="AudioStream" uid="uid://d3lnub388gptm" path="res://triumph-jingle-40125.mp3" id="4_1cejq"]
+
+[node name="finishScene" type="Node2D"]
+script = ExtResource("1_kjskf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(356, 182)
+scale = Vector2(0.567901, 0.567901)
+texture = ExtResource("1_n5ji5")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_left = 49.0
+offset_top = 207.0
+offset_right = 608.0
+offset_bottom = 384.0
+theme_override_colors/default_color = Color(0.898039, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_nrh0q")
+theme_override_font_sizes/normal_font_size = 82
+bbcode_enabled = true
+text = "[shake rate=40.0 level=3connected=0]DOGUM GUNU KUTLU OLSUN[/shake]"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_1cejq")
+volume_db = 10.0
+autoplay = true

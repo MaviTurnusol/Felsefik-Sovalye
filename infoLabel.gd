@@ -3,7 +3,7 @@ extends Label
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	UnlimitedRulebook.infoLabel = self
+	#UnlimitedRulebook.infoLabel = self
 	pass # Replace with function body.
 
 

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://befp3cakarrpn"
+path="res://.godot/imported/Polyphia - Playing God (Official Music Video).mp3-e640458a16fb0c573bc649d1f62f5d3c.mp3str"
+
+[deps]
+
+source_file="res://Chars/Polyphia - Playing God (Official Music Video).mp3"
+dest_files=["res://.godot/imported/Polyphia - Playing God (Official Music Video).mp3-e640458a16fb0c573bc649d1f62f5d3c.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

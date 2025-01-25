@@ -10,6 +10,11 @@ func _ready():
 		monitoring = false
 	area_entered.connect(harm)
 
+func _process(_delta):
+	if UnlimitedRulebook.globalEngineer:
+		engineer = true
+	else:
+		engineer = false
 func harm(area):
 	if area.has_method("damage"):
 		area.damage(atk, self)

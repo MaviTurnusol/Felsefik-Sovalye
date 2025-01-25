@@ -9,7 +9,7 @@ var speed = 100
 func _ready():
 	$Body/HitBoxComp.father = self
 	$Body/HealthComp.father = self
-	$Body/HarmBoxComp.atk = 50
+	$Body/HarmBoxComp.atk = 100
 	await get_tree().create_timer(0.8).timeout
 	state = States.RUN
 	sprite.play("jumping")

@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://eqkav0nfcsky"]
+
+[ext_resource type="Script" path="res://MusicBook.gd" id="1_vkx28"]
+[ext_resource type="AudioStream" uid="uid://cecpkoq0r613w" path="res://Chars/Cem Karaca - Tamirci Çırağı (Official Lyric Video).mp3" id="2_rpr0c"]
+[ext_resource type="AudioStream" uid="uid://c12pg5myqoh4b" path="res://Chars/Carol of The Bells - EPIC VERSION (by Samuel Kim) _ Epic Christmas Music.mp3" id="2_ylcf3"]
+[ext_resource type="AudioStream" uid="uid://befp3cakarrpn" path="res://Chars/Polyphia - Playing God (Official Music Video).mp3" id="3_2y1ax"]
+[ext_resource type="AudioStream" uid="uid://dc3atm8ptgqj2" path="res://Chars/SVP-1.mp3" id="4_qne7f"]
+
+[node name="MusicBook" type="Node2D"]
+process_mode = 3
+script = ExtResource("1_vkx28")
+
+[node name="boss2" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_ylcf3")
+
+[node name="boss1" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_rpr0c")
+
+[node name="menu" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_qne7f")
+volume_db = 3.0
+
+[node name="arena" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_2y1ax")

@@ -1,0 +1,4 @@
+~ start
+[speed=0.2]\n\n HOSGELDIN [wait=1] \n\n ARTIK BENIM [wait=1] \n\n TARLAMDASIN
+do UnlimitedRulebook.changeScene.emit("res://arena_2.tscn")
+=> END

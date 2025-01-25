@@ -1,0 +1,136 @@
+[gd_scene load_steps=11 format=3 uid="uid://b5qbsid3rxvr6"]
+
+[ext_resource type="Script" path="res://Chars/floor_cutter.gd" id="1_lpbaj"]
+[ext_resource type="Texture2D" uid="uid://bxrhykokxkirc" path="res://Chars/cross.png" id="1_ylhhf"]
+[ext_resource type="Texture2D" uid="uid://crjm3eax4wa42" path="res://Chars/krk_klc.png" id="2_ntd0y"]
+[ext_resource type="Script" path="res://Chars/swordBody.gd" id="3_ngxwe"]
+[ext_resource type="PackedScene" uid="uid://df56ggibg66c4" path="res://Chars/components/harm_box_comp.tscn" id="5_mgbyo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cosfc"]
+size = Vector2(16, 356)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3rfqq"]
+size = Vector2(16, 293)
+
+[sub_resource type="Animation" id="Animation_2mijv"]
+resource_name = "crossFloat"
+length = 1.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cross:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7, 1, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cross:position")
+tracks/1/interp = 2
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.7, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, -42), Vector2(0, -25), Vector2(0, -25), Vector2(0, -25)]
+}
+
+[sub_resource type="Animation" id="Animation_4xx3y"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("cross:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("cross:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, -42)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_38404"]
+_data = {
+"RESET": SubResource("Animation_4xx3y"),
+"crossFloat": SubResource("Animation_2mijv")
+}
+
+[node name="floorCutter" type="Node2D"]
+script = ExtResource("1_lpbaj")
+
+[node name="cross" type="Sprite2D" parent="."]
+modulate = Color(1, 1, 1, 0)
+z_index = 9
+position = Vector2(0, -42)
+scale = Vector2(2, 2)
+texture = ExtResource("1_ylhhf")
+
+[node name="cutter" type="Control" parent="."]
+clip_contents = true
+layout_mode = 3
+anchors_preset = 0
+offset_left = -50.0
+offset_top = -913.0
+offset_right = 50.0
+
+[node name="swordBody" type="CharacterBody2D" parent="cutter" groups=["sword"]]
+position = Vector2(50, 1402)
+collision_layer = 2048
+collision_mask = 0
+script = ExtResource("3_ngxwe")
+
+[node name="sprite" type="Sprite2D" parent="cutter/swordBody"]
+z_index = 1
+position = Vector2(8, 84)
+scale = Vector2(2, 2)
+texture = ExtResource("2_ntd0y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cutter/swordBody"]
+position = Vector2(8, 13)
+shape = SubResource("RectangleShape2D_cosfc")
+
+[node name="HarmBoxComp" parent="cutter/swordBody" node_paths=PackedStringArray("father") instance=ExtResource("5_mgbyo")]
+monitoring = false
+alwaysActive = true
+atk = 50
+father = NodePath("..")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cutter/swordBody/HarmBoxComp"]
+z_index = 2
+position = Vector2(8, 8.5)
+shape = SubResource("RectangleShape2D_3rfqq")
+
+[node name="ColorRect" type="ColorRect" parent="cutter"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_38404")
+}
+autoplay = "crossFloat"
+
+[connection signal="animation_finished" from="animator" to="." method="_on_animator_animation_finished"]

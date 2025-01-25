@@ -1,5 +1,6 @@
-[gd_scene load_steps=57 format=3 uid="uid://b1hfdbgbs6y1n"]
+[gd_scene load_steps=58 format=3 uid="uid://b1hfdbgbs6y1n"]
 
+[ext_resource type="Script" path="res://arena_2.gd" id="1_lcca0"]
 [ext_resource type="Material" uid="uid://hvif3dtkorhk" path="res://swordtest1.tres" id="1_m0ryq"]
 [ext_resource type="Texture2D" uid="uid://dtuc44ka5ge5d" path="res://sprites/layer7.png" id="2_kd2po"]
 [ext_resource type="Texture2D" uid="uid://bia5nwkv6sgb5" path="res://sprites/layer6.png" id="3_bhenm"]
@@ -209,7 +210,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5wegs"]
-size = Vector2(951, 24.3333)
+size = Vector2(948, 24.3333)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6kixr"]
 size = Vector2(124, 158)
@@ -251,6 +252,7 @@ shader_parameter/enabled = false
 shader_parameter/ColorParameter = Color(1, 0, 0, 1)
 
 [node name="arena2" type="Node2D"]
+script = ExtResource("1_lcca0")
 
 [node name="gameSprites" type="Node2D" parent="."]
 
@@ -354,7 +356,7 @@ collision_layer = 15
 collision_mask = 15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="gameSprites/boxe"]
-position = Vector2(329.5, 348.167)
+position = Vector2(328, 348.167)
 shape = SubResource("RectangleShape2D_5wegs")
 
 [node name="CollisionShape2D3" type="CollisionShape2D" parent="gameSprites/boxe"]
@@ -372,6 +374,7 @@ shape = SubResource("RectangleShape2D_4jnsv")
 [node name="CollisionShape2D6" type="CollisionShape2D" parent="gameSprites/boxe"]
 position = Vector2(784.5, 162)
 shape = SubResource("RectangleShape2D_vj3nx")
+disabled = true
 
 [node name="boxeGate" type="StaticBody2D" parent="gameSprites"]
 

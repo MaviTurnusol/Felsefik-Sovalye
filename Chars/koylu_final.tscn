@@ -1,0 +1,182 @@
+[gd_scene load_steps=14 format=3 uid="uid://n7ga26j74ces"]
+
+[ext_resource type="Texture2D" uid="uid://ce6sanehvjc1f" path="res://Chars/koylubuyuk.png" id="1_1j1w1"]
+[ext_resource type="Script" path="res://Chars/koylu_final.gd" id="1_a33ip"]
+[ext_resource type="Shader" path="res://testFlame.gdshader" id="1_sbwjs"]
+[ext_resource type="Texture2D" uid="uid://ypw3ofmrxvvv" path="res://fire.png" id="2_pob6f"]
+[ext_resource type="Texture2D" uid="uid://c20cvylexykxq" path="res://red2d.tres" id="3_lcbta"]
+[ext_resource type="Texture2D" uid="uid://dghulhr40a4qj" path="res://Chars/koylubuyukdark.png" id="4_rqfrb"]
+[ext_resource type="Texture2D" uid="uid://71xmq65lcvo6" path="res://Chars/zangetsu.png" id="6_g0lsq"]
+[ext_resource type="PackedScene" uid="uid://df56ggibg66c4" path="res://Chars/components/harm_box_comp.tscn" id="6_jfyji"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ejxlb"]
+shader = ExtResource("1_sbwjs")
+shader_parameter/scroll = Vector2(0.5, 0.5)
+shader_parameter/scroll2 = Vector2(0.3, 0.3)
+shader_parameter/noiseScale1 = Vector2(1, 1)
+shader_parameter/noiseScale2 = Vector2(1, 1)
+shader_parameter/blur = 3.0
+shader_parameter/base_intensity = 0.1
+shader_parameter/intensity_factor = 1.0
+shader_parameter/NOISE_PATTERN = ExtResource("2_pob6f")
+shader_parameter/TONE_MAPPING = ExtResource("3_lcbta")
+
+[sub_resource type="Animation" id="Animation_qhrn2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprites/zanpakutoGrip:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.479966]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprites/zanpakutoGrip/zanpakuto:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprites/zanpakutoGrip/HarmBoxComp:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_mhval"]
+resource_name = "getsugaTenshou"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("sprites/zanpakutoGrip:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.6, 0.7),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.479966, 0.785398, 0.785398, -3.49066]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("sprites/zanpakutoGrip/zanpakuto:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.6, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("sprites/zanpakutoGrip/HarmBoxComp:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.6, 0.7, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [false, true, true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sodk5"]
+_data = {
+"RESET": SubResource("Animation_qhrn2"),
+"getsugaTenshou": SubResource("Animation_mhval")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_20jjm"]
+size = Vector2(14, 40)
+
+[node name="koyluFinal" type="CharacterBody2D"]
+script = ExtResource("1_a33ip")
+
+[node name="sprites" type="Node2D" parent="."]
+
+[node name="flame" type="Sprite2D" parent="sprites"]
+material = SubResource("ShaderMaterial_ejxlb")
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("4_rqfrb")
+
+[node name="shadow" type="Sprite2D" parent="sprites"]
+modulate = Color(1, 1, 1, 0.521569)
+scale = Vector2(0.21, 0.21)
+texture = ExtResource("4_rqfrb")
+
+[node name="koylu" type="Sprite2D" parent="sprites"]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("1_1j1w1")
+
+[node name="zanpakutoGrip" type="Marker2D" parent="sprites"]
+rotation = 0.479966
+
+[node name="HarmBoxComp" parent="sprites/zanpakutoGrip" node_paths=PackedStringArray("father") instance=ExtResource("6_jfyji")]
+monitoring = false
+alwaysActive = true
+atk = 100
+father = NodePath("../../..")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="sprites/zanpakutoGrip/HarmBoxComp"]
+polygon = PackedVector2Array(-49.8797, -50.0801, 0.179639, -29.7316, -0.137085, -227.66, -35.4043, -174.641)
+
+[node name="zanpakuto" type="Sprite2D" parent="sprites/zanpakutoGrip"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(-22, -135)
+texture = ExtResource("6_g0lsq")
+flip_h = true
+
+[node name="animator" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_sodk5")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 3)
+shape = SubResource("RectangleShape2D_20jjm")
+disabled = true
+
+[node name="uselessTimer" type="Timer" parent="."]
+wait_time = 2.5
+one_shot = true
+
+[node name="floater" type="Timer" parent="."]
+wait_time = 1.25
+autostart = true
+
+[node name="getsugaTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="throwMer" type="Timer" parent="."]
+one_shot = true
+
+[node name="stateChanger" type="Timer" parent="."]
+wait_time = 8.0
+autostart = true
+
+[connection signal="timeout" from="uselessTimer" to="." method="_on_useless_timer_timeout"]
+[connection signal="timeout" from="floater" to="." method="_on_floater_timeout"]
+[connection signal="timeout" from="getsugaTimer" to="." method="_on_getsuga_timer_timeout"]
+[connection signal="timeout" from="throwMer" to="." method="_on_throw_mer_timeout"]
+[connection signal="timeout" from="stateChanger" to="." method="_on_state_changer_timeout"]

@@ -3,6 +3,8 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	MusicBook.openMusic("menu")
+	MusicBook.deglitchSound()
 	pass # Replace with function body.
 
 
@@ -12,7 +14,7 @@ func _process(delta):
 
 
 func _on_play_pressed():
-	get_tree().change_scene_to_file("res://arena_1.tscn")
+	get_tree().change_scene_to_file("res://Chars/transition_scene_1.tscn")
 	pass # Replace with function body.
 
 

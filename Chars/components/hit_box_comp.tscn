@@ -1,6 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://biyeoy2vdy2vl"]
+[gd_scene load_steps=4 format=3 uid="uid://biyeoy2vdy2vl"]
 
 [ext_resource type="Script" path="res://Chars/components/HitBoxComp.gd" id="1_hmmrt"]
+[ext_resource type="AudioStream" uid="uid://bhncpmfouo07r" path="res://Chars/hitHurt.wav" id="2_3r4dv"]
+[ext_resource type="AudioStream" uid="uid://b446yuqnq0h41" path="res://Chars/explosion.wav" id="3_b1a1i"]
 
 [node name="HitBoxComp" type="Area2D"]
 script = ExtResource("1_hmmrt")
+
+[node name="hit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_3r4dv")
+
+[node name="death" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_b1a1i")
